@@ -14,6 +14,9 @@ class ChangeThemeViewmodel {
   final LocalStorageInterface storage;
   final AppConfigModel config = AppConfigModel();
 
+  ChangeThemeViewmodel({required this.storage});
+
+
   Future initStorge() async {
    await storage.get('isDark').then((value){ 
       if (value != null) {
@@ -24,7 +27,6 @@ class ChangeThemeViewmodel {
     });
   }
 
-  ChangeThemeViewmodel({required this.storage});
   void changeTheme(bool value) {
     config.themeSwicht.value = value;
     storage.put('isDark', value); //
