@@ -1,4 +1,4 @@
-import 'package:arq_app/app/controllers/app_controller.dart';
+import 'package:arq_app/app/app_controller.dart';
 import 'package:flutter/material.dart';
 
 //Widgets customizados como boa pratica devem ser statless ao inves de stateFull 

@@ -2,7 +2,7 @@
 e os widgets que não serão tão vistos ou serão componentes do nosso aplicativo 
 */
 
-import 'package:arq_app/app/controllers/app_controller.dart';
+import 'package:arq_app/app/app_controller.dart';
 import 'package:arq_app/app/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class AppWidget extends StatelessWidget {
       builder: (context, isDark, child) {
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(brightness: isDark? Brightness.dark : Brightness.light),
+          theme: ThemeData(brightness: isDark ? Brightness.dark : Brightness.light),
           home:  HomePage(),
         );
       },

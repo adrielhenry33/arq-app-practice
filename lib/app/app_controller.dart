@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:arq_app/app/models/app_config_model.dart';
 
 //controllers são classes
 
@@ -12,13 +12,11 @@ class AppController {
   Gerenciar estado sem precisar de Provider/Riverpod/etc.,
   Garantir que uma mesma instância seja usada em toda a aplicação.
  */
-
   static final AppController instance = AppController._();
   AppController._();
 
-  final themeSwicht = ValueNotifier<bool>(false);
-
+  final AppConfigModel config = AppConfigModel();
   void changeTheme(bool value) {
-    themeSwicht.value = value;
+    config.themeSwicht.value = value;
   }
 }
