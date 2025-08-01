@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: AppController.instance.config.themeSwicht,
+      valueListenable: AppController.instance.themeViewmodel.config.themeSwicht,
       builder: (context, isDark, child) {
         return MaterialApp(
           title: 'Flutter Demo',
