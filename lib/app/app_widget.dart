@@ -13,10 +13,10 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: AppController.instance.themeSwicht,
-      builder: (context, isDart, child) {
+      builder: (context, isDark, child) {
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(brightness: isDart ? Brightness.dark : Brightness.light),
+          theme: ThemeData(brightness: isDark? Brightness.dark : Brightness.light),
           home: const HomePage(),
         );
       },
