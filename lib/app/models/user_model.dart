@@ -1,13 +1,13 @@
 class UserModel {
   final String name;
   final String email;
-  final String ninckName;
+  final String nickName;
   final String picture;
 
   UserModel({
     required this.name,
     required this.email,
-    required this.ninckName,
+    required this.nickName,
     required this.picture,
   });
 }
