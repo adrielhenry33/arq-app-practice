@@ -1,5 +1,4 @@
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
-import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -19,5 +18,4 @@ class AppController {
   bool get isDark => themeViewmodel.config.themeSwicht.value;
   ValueNotifier<bool> get themeSwitch => themeViewmodel.config.themeSwicht;
 
-  final LocalStorageInterface storageInterface = SharedLocalStorageService();
 }
