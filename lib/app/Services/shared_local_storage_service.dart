@@ -1,7 +1,7 @@
 import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedLocalStorageService implements LocalStorageInterface {
+class SharedLocalStorageServiceImplementation implements LocalStorageInterface {
   @override
   Future delete(String key) async {
     var shared = await SharedPreferences.getInstance();

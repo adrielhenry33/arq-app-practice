@@ -12,7 +12,7 @@ class AppController {
   }
 
   final ChangeThemeViewmodel themeViewmodel = ChangeThemeViewmodel(
-    storage: SharedLocalStorageService(),
+    storage: SharedLocalStorageServiceImplementation(),
   );
 
   bool get isDark => themeViewmodel.config.themeSwicht.value;
