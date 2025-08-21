@@ -1,5 +1,5 @@
-import 'package:arq_app/app/Repository/store_implementation_repository.dart';
-import 'package:arq_app/app/Services/client_http_service.dart';
+import 'package:arq_app/app/repository/store_implementation_repository.dart';
+import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/components/custom_switch_widget.dart';
 import 'package:arq_app/app/models/store_model.dart';
 import 'package:arq_app/app/pages/home/controllers/home_controller.dart';

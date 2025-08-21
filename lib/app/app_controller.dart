@@ -1,4 +1,4 @@
-import 'package:arq_app/app/Services/shared_local_storage_service.dart';
+import 'package:arq_app/app/services/shared_local_storage_service.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
 import 'package:flutter/material.dart';
 

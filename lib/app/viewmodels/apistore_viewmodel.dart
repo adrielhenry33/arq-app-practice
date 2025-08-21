@@ -1,7 +1,8 @@
-import 'package:arq_app/app/Repository/store_implementation_repository.dart';
+import 'package:arq_app/app/repository/store_implementation_repository.dart';
 import 'package:arq_app/app/models/store_model.dart';
 import 'package:flutter/foundation.dart';
-  /*Explicando ValueNotifier<StoreModel>()
+
+/*Explicando ValueNotifier<StoreModel>()
 A linha final storeviewmodel = ValueNotifier<StoreModel>(); 
 faz duas coisas importantes:
 Cria uma variável chamada storeviewmodel.
@@ -14,22 +15,31 @@ Isso é ótimo porque o Dart vai garantir a segurança de tipos para
  você. Por exemplo, você não conseguirá acidentalmente atribuir um 
  int ou uma String ao valor do seu ValueNotifier. */
 class ApistoreViewmodel {
-
   final StoreRepositoryImplementation repositoryInterface;
-  
+
   final storeviewmodel = ValueNotifier<StoreModel>(
-    StoreModel(id: 0, title: '', price: 0.0, description: '', category: ''),
+    StoreModel(
+      id: -1,
+      title: 'falha na requisição ',
+      price: 0.0,
+      description: 'falha na requisição',
+      category: 'falha na requisição',
+    ),
   );
 
   ApistoreViewmodel(this.repositoryInterface);
 
-  Future<void> fillRepository() async{
-
+  Future<void> fillRepository() async {
     try {
       storeviewmodel.value = await repositoryInterface.getStore();
     } catch (e) {
-      print(e);
+      storeviewmodel.value = StoreModel(
+        id: -1,
+        title: 'falha na requisição ',
+        price: 0.0,
+        description: 'falha na requisição',
+        category: 'falha na requisição',
+      );
     }
   }
-
 }
