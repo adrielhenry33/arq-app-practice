@@ -12,7 +12,7 @@ class StoreRepositoryImplementation  implements StoreRepositoryInterface {
   @override
   Future<StoreModel> getStore() async {
     var json = await client.get('https://fakestoreapi.com/products');
-    StoreModel model = StoreModel.fromJson(json[0]);
+    StoreModel model = StoreModel.fromJson(json[0]); 
     return model;
   }
 

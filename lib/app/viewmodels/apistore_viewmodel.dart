@@ -17,29 +17,17 @@ Isso é ótimo porque o Dart vai garantir a segurança de tipos para
 class ApistoreViewmodel {
   final StoreRepositoryImplementation repositoryInterface;
 
-  final storeviewmodel = ValueNotifier<StoreModel>(
-    StoreModel(
-      id: -1,
-      title: 'falha na requisição ',
-      price: 0.0,
-      description: 'falha na requisição',
-      category: 'falha na requisição',
-    ),
+  final storeviewmodel = ValueNotifier<StoreModel?>(
+    null
   );
 
   ApistoreViewmodel(this.repositoryInterface);
 
-  Future<void> fillRepository() async {
+  Future<void>fillRepository() async {
     try {
       storeviewmodel.value = await repositoryInterface.getStore();
     } catch (e) {
-      storeviewmodel.value = StoreModel(
-        id: -1,
-        title: 'falha na requisição ',
-        price: 0.0,
-        description: 'falha na requisição',
-        category: 'falha na requisição',
-      );
+      storeviewmodel.value = null;
     }
   }
 }

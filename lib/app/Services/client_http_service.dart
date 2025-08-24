@@ -9,12 +9,12 @@ class ClientHttpServiceImplementation implements ClientHttpInterface {
   @override
   void addHeader(String token) {}
   @override
-  Future<Map<String, dynamic>> get(String url) async {
+  Future<List<dynamic>> get(String url) async {
     try {
       var uri = Uri.parse(url);
       var response = await httpClient.get(uri);
       if (response.statusCode == 200) {
-        final Map<String, dynamic> body = jsonDecode(response.body);
+        final List<dynamic> body = jsonDecode(response.body);
         return body;
       } else{
         throw Exception('Falha na requisição');

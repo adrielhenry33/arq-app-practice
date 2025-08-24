@@ -35,10 +35,10 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           CustomSwitchWidget(),
-          ValueListenableBuilder<StoreModel>(
+          ValueListenableBuilder<StoreModel?>(
             valueListenable: homeController.store,
             builder: (context, model, child) {
-              if (model.title == null) {
+              if (model == null) {
                 return Center(child: CircularProgressIndicator());
               }
 
