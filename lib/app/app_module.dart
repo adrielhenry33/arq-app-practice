@@ -27,6 +27,6 @@ class AppModule extends Module {
   @override
   void routes(r){
     r.child('/', child: (context) => LoginPage());
-    r.child('/', child: (context) => HomePage());
+    r.child('/home', child: (context) => HomePage());
   }
 }
