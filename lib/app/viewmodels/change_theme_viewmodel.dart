@@ -29,6 +29,8 @@ class ChangeThemeViewmodel {
 
   void changeTheme(bool value) {
     config.themeSwicht.value = value;
-    storage.put('isDark', value); //
+    storage.put('isDark', value);
+    
   }
 }
+ 

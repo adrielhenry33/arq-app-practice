@@ -4,7 +4,7 @@ import 'package:arq_app/app/models/store_model.dart';
 
 class StoreRepositoryImplementation  implements StoreRepositoryInterface {
   
-  //injeção de dependencia 
+  //injeção de dependencia manual 
   final ClientHttpInterface  client;
 
   StoreRepositoryImplementation(this.client);

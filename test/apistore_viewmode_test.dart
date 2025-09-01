@@ -8,6 +8,7 @@ import 'package:mockito/mockito.dart';
 class ClientHttpMockito extends Mock implements ClientHttpInterface {}
 
 void main() {
+
   late ClientHttpMockito mock;
   late ApistoreViewmodel viewModel;
 

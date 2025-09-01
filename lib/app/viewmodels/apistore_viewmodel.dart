@@ -1,4 +1,4 @@
-import 'package:arq_app/app/repository/store_implementation_repository.dart';
+import 'package:arq_app/app/interfaces/store_repository_interface.dart';
 import 'package:arq_app/app/models/store_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,7 +15,7 @@ Isso é ótimo porque o Dart vai garantir a segurança de tipos para
  você. Por exemplo, você não conseguirá acidentalmente atribuir um 
  int ou uma String ao valor do seu ValueNotifier. */
 class ApistoreViewmodel {
-  final StoreRepositoryImplementation repositoryInterface;
+  final StoreRepositoryInterface repositoryInterface;
 
   final storeviewmodel = ValueNotifier<StoreModel?>(
     null

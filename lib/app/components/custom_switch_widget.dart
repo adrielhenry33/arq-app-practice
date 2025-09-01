@@ -1,7 +1,8 @@
-import 'package:arq_app/app/app_controller.dart';
+import 'package:arq_app/controllers/app_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-//Widgets customizados como boa pratica devem ser statless ao inves de stateFull 
+//Widgets customizados como boa pratica devem ser statless ao inves de stateFull
 //Sempre uma responsabilidade
 
 class CustomSwitchWidget extends StatelessWidget {
@@ -9,8 +10,17 @@ class CustomSwitchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Switch(value: AppController.instance.isDark, onChanged: (value) {
-      AppController.instance.themeViewmodel.changeTheme(value);
-    },);
+    final appController = Modular.get<AppController>();
+    return ValueListenableBuilder<bool>(
+      valueListenable: appController.themeSwitch,
+      builder: (context, isDark, child) {
+        return Switch(
+          value: isDark,
+          onChanged: (value) {
+            appController.changeThemeViewmodel.changeTheme(value);
+          },
+        );
+      },
+    );
   }
 }

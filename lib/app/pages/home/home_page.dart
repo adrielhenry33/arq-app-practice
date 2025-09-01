@@ -1,10 +1,8 @@
-import 'package:arq_app/app/repository/store_implementation_repository.dart';
-import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/components/custom_switch_widget.dart';
 import 'package:arq_app/app/models/store_model.dart';
-import 'package:arq_app/app/pages/home/controllers/home_controller.dart';
-import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
+import 'package:arq_app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,14 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final homeController = HomeController(
-    ApistoreViewmodel(
-      StoreRepositoryImplementation(
-        ClientHttpServiceImplementation()
-      ),
-    ),
-  );
-
+  //Injeções pelo metodo tradicionar para pequenas aplicações
+  final homeController = Modular.get<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +33,6 @@ class _HomePageState extends State<HomePage> {
               if (model == null) {
                 return Center(child: CircularProgressIndicator());
               }
-
               return Text(model.title);
             },
           ),
