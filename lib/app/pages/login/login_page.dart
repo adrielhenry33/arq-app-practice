@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //Quando temos uma view que compreende uma tela inteira nos podemos chamar esta
-// page de view 
+// page de view
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,10 +13,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: Text("Login Page"),
-        centerTitle: true,
+    return Scaffold(
+      appBar: AppBar(title: Text("Login Page"), centerTitle: true),
+      body: Padding(
+        padding: EdgeInsets.all(15),
+        child: Column(children: [
+          TextField(decoration: InputDecoration()),
+      ],),
       ),
     );
   }
