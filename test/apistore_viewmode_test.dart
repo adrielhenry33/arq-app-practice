@@ -1,41 +1,54 @@
-import 'package:arq_app/app/repository/store_implementation_repository.dart';
 import 'package:arq_app/app/interfaces/client_http_interface.dart';
+import 'package:arq_app/app/interfaces/store_repository_interface.dart';
 import 'package:arq_app/app/models/store_model.dart';
+import 'package:arq_app/app/repository/store_implementation_repository.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 class ClientHttpMockito extends Mock implements ClientHttpInterface {}
 
-void main() {
+class TestAppModule extends Module {
+  @override
+  void binds(i) {
+    i.add<ClientHttpInterface>(ClientHttpMockito.new);
+    i.add<StoreRepositoryInterface>(StoreRepositoryImplementation.new);
+    i.add(ApistoreViewmodel.new);
+  }
+}
 
+void main() {
   late ClientHttpMockito mock;
   late ApistoreViewmodel viewModel;
 
-  setUp(() {
+  setUpAll(() {
+    Modular.init(TestAppModule());
     mock = ClientHttpMockito();
     viewModel = ApistoreViewmodel(StoreRepositoryImplementation(mock));
   });
 
-  // Teste para garantir que os recursos sejam descartados corretamente
-  tearDown(() {
-    // Você pode precisar adicionar um método para descartar o viewModel
-    // por exemplo, viewModel.dispose();
+  tearDownAll(() {
+    Modular.destroy();
   });
 
   // Caso de teste para um erro na requisição da API
   test('ApiStoreViewModel error', () async {
     // URL corrigida para que a configuração do mock funcione
+    final mock = Modular.get<ClientHttpInterface>();
+    final viewModel = Modular.get<ApistoreViewmodel>();
     when(
       mock.get("https://fakestoreapi.com/products"),
     ).thenThrow(Exception("Error"));
 
     await viewModel.fillRepository();
-    expect(viewModel.storeviewmodel.value, null);
+    expect(viewModel.storeviewmodel.value, isNull);
   });
 
   // Caso de teste para uma requisição de API bem-sucedida
   test('ApiStoreViewModel success', () async {
+    final mock = Modular.get<ClientHttpInterface>();
+    final viewModel = Modular.get<ApistoreViewmodel>();
     // URL corrigida para que a configuração do mock funcione
     when(mock.get('https://fakestoreapi.com/products')).thenAnswer(
       (_) => Future.value([
@@ -50,6 +63,6 @@ void main() {
     );
 
     await viewModel.fillRepository();
-    expect(viewModel.storeviewmodel.value, isA<StoreModel>());
+    expect(viewModel.storeviewmodel.value, isA<List<StoreModel>>());
   });
 }
