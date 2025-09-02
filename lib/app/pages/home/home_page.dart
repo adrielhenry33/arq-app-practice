@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //Injeções pelo metodo tradicionar para pequenas aplicações
+  //Injeções pelo metodo tradicional para pequenas aplicações
   final homeController = Modular.get<HomeController>();
   @override
   Widget build(BuildContext context) {
