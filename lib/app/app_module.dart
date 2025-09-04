@@ -9,8 +9,8 @@ import 'package:arq_app/app/repository/store_implementation_repository.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
-import 'package:arq_app/controllers/app_controller.dart';
-import 'package:arq_app/controllers/home_controller.dart';
+import 'package:arq_app/app/controllers/app_controller.dart';
+import 'package:arq_app/app/controllers/home_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
