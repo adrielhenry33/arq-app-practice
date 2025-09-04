@@ -4,6 +4,7 @@ import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
 import 'package:arq_app/app/pages/home/home_page.dart';
 import 'package:arq_app/app/pages/login/login_page.dart';
+import 'package:arq_app/app/pages/registration/registration_page.dart';
 import 'package:arq_app/app/repository/store_implementation_repository.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
@@ -28,5 +29,6 @@ class AppModule extends Module {
   void routes(r){
     r.child('/', child: (context) => LoginPage());
     r.child('/home', child: (context) => HomePage());
+    r.child('/register', child: (context) => RegistrationPage());
   }
 }

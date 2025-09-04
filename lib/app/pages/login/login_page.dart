@@ -14,6 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isVisiblePass = false;
+
   @override
   Widget build(BuildContext context) {
     final appController = Modular.get<AppController>();
@@ -52,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 15),
             Image(image: AssetImage('images/login.jpg')),
+            SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email_outlined, size: 20),
@@ -69,9 +72,21 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 15),
 
             TextField(
+              obscureText: !_isVisiblePass,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline, size: 20),
-                suffixIcon: Icon(Icons.visibility_off_outlined),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _isVisiblePass = !_isVisiblePass;
+                    });
+                  },
+                  icon: Icon(
+                    _isVisiblePass
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility,
+                  ),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -103,6 +118,52 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 'Login',
                 style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+
+            SizedBox(height: 15),
+
+             ElevatedButton(
+              onPressed: () {
+                Modular.to.navigate('/register');
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 2,
+                backgroundColor: Colors.deepOrangeAccent,
+                padding: EdgeInsets.all(16),
+                textStyle: TextStyle(color: Colors.white),
+                minimumSize: Size.fromHeight(55),
+
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(12),
+                ),
+              ),
+              child: Text(
+                'Criar conta ',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+
+            SizedBox(height: 15),
+
+            TextButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                padding: EdgeInsets.all(16),
+                textStyle: TextStyle(color: Colors.white),
+                minimumSize: Size.fromHeight(55),
+
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(12),
+                ),
+              ),
+              child: Text(
+                'Esqueceu sua senha? ',
+                style: TextStyle(
+                  color: appController.isDark ? Colors.black87 : Colors.white,
+                  fontSize: 16,
+                ),
               ),
             ),
           ],
