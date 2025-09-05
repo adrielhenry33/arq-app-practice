@@ -7,7 +7,7 @@ class HomeController {
 
   HomeController(this.viewmodel);
 
-  ValueNotifier<StoreModel?> get store => viewmodel.storeviewmodel;
+  ValueNotifier<List<StoreModel?>> get store => viewmodel.storeviewmodel;
 
   Future<void> getStore() async {
     viewmodel.fillRepository();

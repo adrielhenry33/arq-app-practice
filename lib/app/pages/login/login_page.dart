@@ -89,8 +89,8 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     icon: Icon(
                       _isVisiblePass
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility,
+                          ? Icons.visibility
+                          : Icons.visibility_off_outlined,
                     ),
                   ),
                   border: OutlineInputBorder(
