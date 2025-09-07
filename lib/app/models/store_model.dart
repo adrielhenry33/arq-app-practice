@@ -4,6 +4,7 @@ class StoreModel {
   final double price;
   final String description;
   final String category;
+  final String image;
 
   StoreModel({
     required this.id,
@@ -11,6 +12,7 @@ class StoreModel {
     required this.price,
     required this.description,
     required this.category,
+    required this.image
   });
 
   factory StoreModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class StoreModel {
       price: (json['price'] as num).toDouble(),
       description: json['description'],
       category: json['category'],
+      image: json['image']
     );
   }
   Map<String, dynamic> toJson() {
@@ -29,6 +32,7 @@ class StoreModel {
       'price': price,
       'description': description,
       'category': category,
+      'image': image,
     };
     return data;
   }

@@ -19,6 +19,7 @@ class CustomSwitchWidget extends StatelessWidget {
           onChanged: (value) {
             appController.changeThemeViewmodel.changeTheme(value);
           },
+          focusColor: Colors.orangeAccent,
         );
       },
     );
