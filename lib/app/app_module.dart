@@ -5,7 +5,6 @@ import 'package:arq_app/app/interfaces/store_repository_interface.dart';
 import 'package:arq_app/app/pages/home/home_page.dart';
 import 'package:arq_app/app/pages/login/login_page.dart';
 import 'package:arq_app/app/pages/registration/registration_page.dart';
-import 'package:arq_app/app/repository/store_implementation_repository.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
