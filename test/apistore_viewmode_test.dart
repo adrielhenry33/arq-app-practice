@@ -57,7 +57,7 @@ void main() {
           title: 'T-shirt',
           price: 25.99,
           description: 'White T-shirt',
-          category: 'Blusa',
+          category: 'Blusa', image: '',
         ).toJson(),
       ]),
     );
