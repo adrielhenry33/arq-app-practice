@@ -1,3 +1,4 @@
+import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
 import 'package:arq_app/app/controllers/app_controller.dart';
 import 'package:arq_app/app/controllers/home_controller.dart';
