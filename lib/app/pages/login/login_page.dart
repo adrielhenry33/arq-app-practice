@@ -1,7 +1,6 @@
 import 'package:arq_app/app/controllers/app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 //Quando temos uma view que compreende uma tela inteira nos podemos chamar esta
 // page de view
@@ -45,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   Text(
                     'FakeStore',
-                    style: GoogleFonts.montserrat(
+                    style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       color: appController.isDark
