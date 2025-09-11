@@ -50,27 +50,36 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             : Container(),
+        bottomNavigationBar: CustomBottomBarWidget(),
 
-        body: ValueListenableBuilder<List<StoreModel?>>(
-          valueListenable: homeController.store,
-          builder: (context, store, child) {
-            return ListView.builder(
-              itemCount: store.length,
-              itemBuilder: (context, index) {
-                final produtos = store[index];
-                return Card(
-                  elevation: 4,
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  child: ListTile(
-                    leading: Image.network(produtos!.image),
-                    title: Text(produtos.title, style: TextStyle()),
-                    subtitle: Text(produtos.category),
-                    trailing: Text('\$${produtos.price.toStringAsFixed(2)}'),
-                  ),
-                );
-              },
-            );
-          },
+        body: Column(
+          children: [
+            Expanded(
+              child: ValueListenableBuilder<List<StoreModel?>>(
+                valueListenable: homeController.store,
+                builder: (context, store, child) {
+                  return ListView.builder(
+                    itemCount: store.length,
+                    itemBuilder: (context, index) {
+                      final produtos = store[index];
+                      return Card(
+                        elevation: 4,
+                        margin: EdgeInsets.symmetric(vertical: 8),
+                        child: ListTile(
+                          leading: Image.network(produtos!.image),
+                          title: Text(produtos.title, style: TextStyle()),
+                          subtitle: Text(produtos.category),
+                          trailing: Text(
+                            '\$${produtos.price.toStringAsFixed(2)}',
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
