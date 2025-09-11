@@ -1,7 +1,6 @@
 import 'package:arq_app/app/controllers/app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -21,12 +20,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
         appBar: AppBar(
           title: Text(
             'FakeStore',
-            style: GoogleFonts.montserrat(
-              textStyle: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color:  Colors.white,
-              ),
+
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
           centerTitle: true,
@@ -55,11 +53,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     color: appController.isDark ? Colors.black : Colors.white,
                     child: Text(
                       'Criar Conta',
-                      style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -146,7 +142,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   SizedBox(height: 15),
 
                   TextButton(
-                    onPressed: () { Modular.to.pop(); },
+                    onPressed: () {
+                      Modular.to.pop();
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       padding: EdgeInsets.all(16),

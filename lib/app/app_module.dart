@@ -33,3 +33,4 @@ class AppModule extends Module {
     r.child('/register', child: (context) => RegistrationPage());
   }
 }
+
