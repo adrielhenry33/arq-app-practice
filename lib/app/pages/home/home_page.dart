@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                         elevation: 4,
                         margin: EdgeInsets.symmetric(vertical: 8),
                         child: ListTile(
-                          onLongPress: () {
+                          onTap: () {
                             setState(() {
                               if (homeController.selecionadas.contains(
                                 produtos,
