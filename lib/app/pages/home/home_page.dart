@@ -16,21 +16,40 @@ class _HomePageState extends State<HomePage> {
   //Injeções pelo metodo tradicional para pequenas aplicações
   final homeController = Modular.get<HomeController>();
   bool _isVisibleButton = false;
+  String textoAppBar = '';
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Produtos", style: TextStyle(color: Colors.white)),
-          backgroundColor: Colors.deepOrangeAccent,
+          actions: [CustomSwitchWidget()],
+
+          title: ValueListenableBuilder<String>(
+            valueListenable: homeController.textAppBar,
+            builder: (context, value, child) {
+              return homeController.selecionadas.isEmpty
+                  ? Text(
+                      homeController.textAppBar.value = 'Produtos',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  : Text(
+                      homeController.textAppBar.value =
+                          '${homeController.selecionadas.length} Produto(s) Selecionado(s)',
+                      style: TextStyle(color: Colors.white),
+                    );
+            },
+          ),
+          backgroundColor: homeController.selecionadas.isNotEmpty
+              ? Colors.blueAccent
+              : Colors.deepOrangeAccent,
           centerTitle: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.vertical(
               top: Radius.circular(16),
             ),
           ),
-          actions: [CustomSwitchWidget()],
         ),
 
         floatingActionButton: !_isVisibleButton
@@ -62,11 +81,30 @@ class _HomePageState extends State<HomePage> {
                     itemCount: store.length,
                     itemBuilder: (context, index) {
                       final produtos = store[index];
+                      if (produtos == null) {
+                        return const SizedBox.shrink();
+                      }
                       return Card(
                         elevation: 4,
                         margin: EdgeInsets.symmetric(vertical: 8),
                         child: ListTile(
-                          leading: Image.network(produtos!.image),
+                          onLongPress: () {
+                            setState(() {
+                              if (homeController.selecionadas.contains(
+                                produtos,
+                              )) {
+                                homeController.selecionadas.remove(
+                                  store[index],
+                                );
+                              } else {
+                                homeController.selecionadas.add(produtos);
+                              }
+                            });
+                          },
+                          leading:
+                              homeController.selecionadas.contains(store[index])
+                              ? CircleAvatar(child: Icon(Icons.check))
+                              : Image.network(produtos.image),
                           title: Text(produtos.title, style: TextStyle()),
                           subtitle: Text(produtos.category),
                           trailing: Text(

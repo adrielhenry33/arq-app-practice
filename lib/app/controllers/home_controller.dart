@@ -9,7 +9,12 @@ class HomeController {
 
   ValueNotifier<List<StoreModel?>> get store => viewmodel.storeviewmodel;
 
+  ValueNotifier<int> counter = ValueNotifier<int>(0);
+  ValueNotifier<String> textAppBar = ValueNotifier<String>('Produtos');
+  List<StoreModel> selecionadas = [];
+
   Future<void> getStore() async {
     viewmodel.fillRepository();
   }
+
 }

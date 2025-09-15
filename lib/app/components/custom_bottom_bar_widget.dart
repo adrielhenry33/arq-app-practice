@@ -1,3 +1,4 @@
+import 'package:arq_app/app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -9,6 +10,7 @@ class CustomBottomBarWidget extends StatefulWidget {
 }
 
 class _CustomBottomBarWidgetState extends State<CustomBottomBarWidget> {
+  final homeController = Modular.get<HomeController>();
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -20,7 +22,11 @@ class _CustomBottomBarWidgetState extends State<CustomBottomBarWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  homeController.selecionadas = [];
+                });
+              },
               icon: Icon(Icons.add, color: Colors.white, size: 30),
               color: Colors.white,
               tooltip: 'Adicionar Produto',
