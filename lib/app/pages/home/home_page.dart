@@ -1,4 +1,3 @@
-import 'package:arq_app/app/components/custom_bottom_bar_widget.dart';
 import 'package:arq_app/app/components/custom_switch_widget.dart';
 import 'package:arq_app/app/controllers/home_controller.dart';
 import 'package:arq_app/app/models/store_model.dart';
@@ -13,42 +12,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //Injeções pelo metodo tradicional para pequenas aplicações
   final homeController = Modular.get<HomeController>();
   bool _isVisibleButton = false;
-  String textoAppBar = '';
-  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          actions: [CustomSwitchWidget()],
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: ValueListenableBuilder<List<StoreModel>>(
+            valueListenable: homeController.selecionadas,
+            builder: (context, selecionadas, child) {
+              final bool hasSelection = selecionadas.isNotEmpty;
 
-          title: ValueListenableBuilder<String>(
-            valueListenable: homeController.textAppBar,
-            builder: (context, value, child) {
-              return homeController.selecionadas.isEmpty
-                  ? Text(
-                      homeController.textAppBar.value = 'Produtos',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  : Text(
-                      homeController.textAppBar.value =
-                          '${homeController.selecionadas.length} Produto(s) Selecionado(s)',
-                      style: TextStyle(color: Colors.white),
-                    );
+              homeController.textBar.value = hasSelection
+                  ? '${selecionadas.length} Produto(s) Selecionado(s)'
+                  : 'Produtos';
+
+              return AppBar(
+                actions: [CustomSwitchWidget()],
+                title: Text(
+                  homeController.textBar.value,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: hasSelection
+                    ? Colors.blueAccent
+                    : Colors.deepOrangeAccent,
+                centerTitle: true,
+              );
             },
-          ),
-          backgroundColor: homeController.selecionadas.isNotEmpty
-              ? Colors.blueAccent
-              : Colors.deepOrangeAccent,
-          centerTitle: true,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.vertical(
-              top: Radius.circular(16),
-            ),
           ),
         ),
 
@@ -69,7 +62,59 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             : Container(),
-        bottomNavigationBar: CustomBottomBarWidget(),
+
+        bottomNavigationBar: ValueListenableBuilder<List>(
+          valueListenable: homeController.selecionadas,
+          builder: (context, selecionadas, _) {
+            final hasSelected = homeController.selecionadas.value.isNotEmpty;
+            return BottomAppBar(
+              color: hasSelected ? Colors.blueAccent : Colors.deepOrangeAccent,
+              shape: CircularNotchedRectangle(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        minimumSize: Size(150, 150),
+                      ),
+                      onPressed: () {
+                        if (hasSelected) {
+                          homeController.resetSelected();
+                        } else {
+                          null;
+                        }
+                      },
+                      child: Icon(Icons.add, color: Colors.white, size: 30),
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        minimumSize: Size(150, 150),
+                      ),
+                      onPressed: () {
+                        Modular.to.pushNamed('/favorites');
+                      },
+                      child: Icon(
+                        Icons.shopping_cart_checkout_outlined,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
 
         body: Column(
           children: [
@@ -84,33 +129,28 @@ class _HomePageState extends State<HomePage> {
                       if (produtos == null) {
                         return const SizedBox.shrink();
                       }
-                      return Card(
-                        elevation: 4,
-                        margin: EdgeInsets.symmetric(vertical: 8),
-                        child: ListTile(
-                          onTap: () {
-                            setState(() {
-                              if (homeController.selecionadas.contains(
-                                produtos,
-                              )) {
-                                homeController.selecionadas.remove(
-                                  store[index],
-                                );
-                              } else {
-                                homeController.selecionadas.add(produtos);
-                              }
-                            });
-                          },
-                          leading:
-                              homeController.selecionadas.contains(store[index])
-                              ? CircleAvatar(child: Icon(Icons.check))
-                              : Image.network(produtos.image),
-                          title: Text(produtos.title, style: TextStyle()),
-                          subtitle: Text(produtos.category),
-                          trailing: Text(
-                            '\$${produtos.price.toStringAsFixed(2)}',
-                          ),
-                        ),
+                      return ValueListenableBuilder<List<StoreModel>>(
+                        valueListenable: homeController.selecionadas,
+                        builder: (context, selecionadas, _) {
+                          final isSelected = selecionadas.contains(produtos);
+                          return Card(
+                            elevation: 4,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            child: ListTile(
+                              onTap: () {
+                                homeController.toggleSelected(produtos);
+                              },
+                              leading: isSelected
+                                  ? const CircleAvatar(child: Icon(Icons.check))
+                                  : Image.network(produtos.image),
+                              title: Text(produtos.title),
+                              subtitle: Text(produtos.category),
+                              trailing: Text(
+                                '\$${produtos.price.toStringAsFixed(2)}',
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   );

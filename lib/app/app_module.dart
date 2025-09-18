@@ -31,6 +31,6 @@ class AppModule extends Module {
     r.child('/', child: (context) => LoginPage());
     r.child('/home', child: (context) => HomePage());
     r.child('/register', child: (context) => RegistrationPage());
-    r.child('/products', child: (context) => ProductsPage());
+    r.child('/favorites', child: (context) => ProductsPage());
   }
 }
