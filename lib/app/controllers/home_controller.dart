@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class HomeController {
   final ApistoreViewmodel viewmodel;
+  final ValueNotifier<List<StoreModel>> selecionadas;
 
-  HomeController(this.viewmodel);
+  HomeController(this.viewmodel, this.selecionadas);
 
   ValueNotifier<List<StoreModel?>> get store => viewmodel.storeviewmodel;
 
   ValueNotifier<int> counter = ValueNotifier<int>(0);
   ValueNotifier<String> textBar = ValueNotifier<String>('Produtos');
-  final selecionadas = ValueNotifier<List<StoreModel>>([]);
 
   Future<void> getStore() async {
     viewmodel.fillRepository();

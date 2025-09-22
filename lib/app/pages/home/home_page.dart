@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               color: hasSelected ? Colors.blueAccent : Colors.deepOrangeAccent,
               shape: CircularNotchedRectangle(),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                           final isSelected = selecionadas.contains(produtos);
                           return Card(
                             elevation: 4,
-                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            margin: const EdgeInsets.fromLTRB(15, 15, 15, 10),
                             child: ListTile(
                               onTap: () {
                                 homeController.toggleSelected(produtos);

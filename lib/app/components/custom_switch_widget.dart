@@ -20,6 +20,8 @@ class CustomSwitchWidget extends StatelessWidget {
             appController.changeThemeViewmodel.changeTheme(value);
           },
           focusColor: Colors.orangeAccent,
+          inactiveThumbColor: Colors.white,
+          activeThumbColor: Colors.white,
         );
       },
     );
