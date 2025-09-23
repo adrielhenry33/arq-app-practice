@@ -1,3 +1,4 @@
+import 'package:arq_app/app/Repository/favorites_repository.dart';
 import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
 import 'package:arq_app/app/controllers/app_controller.dart';
@@ -6,7 +7,6 @@ import 'package:arq_app/app/controllers/home_controller.dart';
 import 'package:arq_app/app/interfaces/client_http_interface.dart';
 import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
-import 'package:arq_app/app/models/store_model.dart';
 import 'package:arq_app/app/pages/home/home_page.dart';
 import 'package:arq_app/app/pages/login/login_page.dart';
 import 'package:arq_app/app/pages/favorites/favorites_page.dart';
@@ -14,15 +14,13 @@ import 'package:arq_app/app/pages/registration/registration_page.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
   @override
   void binds(i) {
-    i.addSingleton<ValueNotifier<List<StoreModel>>>(
-      () => ValueNotifier<List<StoreModel>>([]),
-    );
+    i.addSingleton(FavoritasRepository.new);
+
     i.addSingleton(HomeController.new);
     i.addSingleton(FavoritesController.new);
     i.add(ApistoreViewmodel.new);

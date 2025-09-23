@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final homeController = Modular.get<HomeController>();
   bool _isVisibleButton = false;
+  bool _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: ValueListenableBuilder<List<StoreModel>>(
-            valueListenable: homeController.selecionadas,
+            valueListenable: homeController.selecionadasTemp,
             builder: (context, selecionadas, child) {
               final bool hasSelection = selecionadas.isNotEmpty;
 
@@ -31,6 +32,14 @@ class _HomePageState extends State<HomePage> {
                   : 'Produtos';
 
               return AppBar(
+                leading: selecionadas.isNotEmpty
+                    ? IconButton(
+                        onPressed: () {
+                          homeController.resetSelected();
+                        },
+                        icon: Icon(Icons.close, size: 30),
+                      )
+                    : null,
                 actions: [CustomSwitchWidget()],
                 title: Text(
                   homeController.textBar.value,
@@ -64,9 +73,10 @@ class _HomePageState extends State<HomePage> {
             : Container(),
 
         bottomNavigationBar: ValueListenableBuilder<List>(
-          valueListenable: homeController.selecionadas,
+          valueListenable: homeController.selecionadasTemp,
           builder: (context, selecionadas, _) {
-            final hasSelected = homeController.selecionadas.value.isNotEmpty;
+            final hasSelected =
+                homeController.selecionadasTemp.value.isNotEmpty;
             return BottomAppBar(
               color: hasSelected ? Colors.blueAccent : Colors.deepOrangeAccent,
               shape: CircularNotchedRectangle(),
@@ -85,7 +95,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                       onPressed: () {
                         if (hasSelected) {
-                          homeController.resetSelected();
                         } else {
                           null;
                         }
@@ -130,17 +139,17 @@ class _HomePageState extends State<HomePage> {
                         return const SizedBox.shrink();
                       }
                       return ValueListenableBuilder<List<StoreModel>>(
-                        valueListenable: homeController.selecionadas,
+                        valueListenable: homeController.selecionadasTemp,
                         builder: (context, selecionadas, _) {
-                          final isSelected = selecionadas.contains(produtos);
+                          _isSelected = selecionadas.contains(produtos);
                           return Card(
                             elevation: 4,
                             margin: const EdgeInsets.fromLTRB(15, 15, 15, 10),
                             child: ListTile(
                               onTap: () {
-                                homeController.toggleSelected(produtos);
+                                homeController.selected(produtos);
                               },
-                              leading: isSelected
+                              leading: _isSelected
                                   ? const CircleAvatar(child: Icon(Icons.check))
                                   : Image.network(produtos.image),
                               title: Text(produtos.title),

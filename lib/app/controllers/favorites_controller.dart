@@ -1,15 +1,21 @@
+import 'package:arq_app/app/Repository/favorites_repository.dart';
 import 'package:arq_app/app/models/store_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class FavoritesController {
-  final ValueNotifier<List<StoreModel>> favoritas;
+  final FavoritasRepository _repository;
 
-  FavoritesController(this.favoritas);
+  FavoritesController(this._repository);
 
-  void removerProduto(StoreModel produto) {
-    final listTemp = List.from(favoritas.value);
-    listTemp.remove(produto);
-    favoritas.value = List.from(listTemp);
+  ValueNotifier<List<StoreModel>> get favoritos =>
+      _repository.favoritesNotifier;
+
+  void remove(StoreModel produto) {
+    _repository.removeProduto(produto);
+  }
+
+  void add(StoreModel produto) {
+    _repository.addProdutos(produto);
   }
 
   
