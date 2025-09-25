@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                               title: Text(produtos.title),
                               subtitle: Text(produtos.category),
                               trailing: Text(
-                                '\$${produtos.price.toStringAsFixed(2)}',
+                                'R\$${produtos.price.toStringAsFixed(2)}',
                               ),
                             ),
                           );
