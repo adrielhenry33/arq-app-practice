@@ -12,27 +12,28 @@ class HomeController {
   ValueNotifier<List<StoreModel?>> get store => viewmodel.storeviewmodel;
   ValueNotifier<int> counter = ValueNotifier<int>(0);
   ValueNotifier<String> textBar = ValueNotifier<String>('Produtos');
-  final selecionadasTemp = ValueNotifier<List<StoreModel>>([]);
+  final selecionados = ValueNotifier<List<StoreModel>>([]);
 
   Future<void> getStore() async {
     viewmodel.fillRepository();
   }
 
   void selected(StoreModel produto) {
-    List<StoreModel> temp = List.from(selecionadasTemp.value);
+    List<StoreModel> temp = List.from(selecionados.value);
     if (temp.contains(produto)) {
       temp.remove(produto);
     } else {
       temp.add(produto);
     }
-    selecionadasTemp.value = temp;
+    selecionados.value = temp;
   }
 
   void addAll() {
-    _repository.addAll(selecionadasTemp.value);
+    _repository.addAll(selecionados.value);
+    resetSelected();
   }
 
   void resetSelected() {
-    selecionadasTemp.value = [];
+    selecionados.value = [];
   }
 }

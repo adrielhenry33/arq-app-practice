@@ -23,16 +23,16 @@ class _HomePageState extends State<HomePage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: ValueListenableBuilder<List<StoreModel>>(
-            valueListenable: homeController.selecionadasTemp,
-            builder: (context, selecionadas, child) {
-              final bool hasSelection = selecionadas.isNotEmpty;
+            valueListenable: homeController.selecionados,
+            builder: (context, selecionados, child) {
+              final bool hasSelection = selecionados.isNotEmpty;
 
               homeController.textBar.value = hasSelection
-                  ? '${selecionadas.length} Produto(s) Selecionado(s)'
+                  ? '${selecionados.length} Produto(s) Selecionado(s)'
                   : 'Produtos';
 
               return AppBar(
-                leading: selecionadas.isNotEmpty
+                leading: selecionados.isNotEmpty
                     ? IconButton(
                         onPressed: () {
                           homeController.resetSelected();
@@ -73,10 +73,9 @@ class _HomePageState extends State<HomePage> {
             : Container(),
 
         bottomNavigationBar: ValueListenableBuilder<List>(
-          valueListenable: homeController.selecionadasTemp,
-          builder: (context, selecionadas, _) {
-            final hasSelected =
-                homeController.selecionadasTemp.value.isNotEmpty;
+          valueListenable: homeController.selecionados,
+          builder: (context, selecionados, _) {
+            final hasSelected = homeController.selecionados.value.isNotEmpty;
             return BottomAppBar(
               color: hasSelected ? Colors.blueAccent : Colors.deepOrangeAccent,
               shape: CircularNotchedRectangle(),
@@ -95,6 +94,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       onPressed: () {
                         if (hasSelected) {
+                          homeController.addAll();
                         } else {
                           null;
                         }
@@ -139,9 +139,9 @@ class _HomePageState extends State<HomePage> {
                         return const SizedBox.shrink();
                       }
                       return ValueListenableBuilder<List<StoreModel>>(
-                        valueListenable: homeController.selecionadasTemp,
-                        builder: (context, selecionadas, _) {
-                          _isSelected = selecionadas.contains(produtos);
+                        valueListenable: homeController.selecionados,
+                        builder: (context, selecionados, _) {
+                          _isSelected = selecionados.contains(produtos);
                           return Card(
                             elevation: 4,
                             margin: const EdgeInsets.fromLTRB(15, 15, 15, 10),

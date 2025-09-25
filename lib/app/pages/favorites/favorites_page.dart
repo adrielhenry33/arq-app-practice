@@ -51,11 +51,11 @@ class FavoritesPage extends StatelessWidget {
                   return Card(
                     elevation: 4,
                     margin: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-
                     child: ListTile(
                       leading: Image.network(produtos.image),
                       title: Text(produtos.title),
-                      subtitle: Text(produtos.description),
+                      subtitle: Text(produtos.category),
+
                     ),
                   );
                 },
