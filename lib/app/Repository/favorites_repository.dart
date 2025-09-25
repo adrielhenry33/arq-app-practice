@@ -23,9 +23,7 @@ class FavoritasRepository {
 
   void addAll(List<StoreModel> model) {
     if (model.isNotEmpty) {
-      for (var element in model) {
-        _favoritos.value.add(element);
-      }
+      _favoritos.value = List.from(_favoritos.value)..addAll(model);
     }
   }
 }
