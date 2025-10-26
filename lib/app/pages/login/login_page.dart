@@ -1,4 +1,4 @@
-import 'package:arq_app/app/controllers/app_controller.dart';
+import 'package:arq_app/app/viewmodels/app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

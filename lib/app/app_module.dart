@@ -1,9 +1,9 @@
 import 'package:arq_app/app/Repository/favorites_repository.dart';
 import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
-import 'package:arq_app/app/controllers/app_controller.dart';
-import 'package:arq_app/app/controllers/favorites_controller.dart';
-import 'package:arq_app/app/controllers/home_controller.dart';
+import 'package:arq_app/app/viewmodels/app_controller.dart';
+import 'package:arq_app/app/viewmodels/favorites_controller.dart';
+import 'package:arq_app/app/viewmodels/home_controller.dart';
 import 'package:arq_app/app/interfaces/client_http_interface.dart';
 import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
