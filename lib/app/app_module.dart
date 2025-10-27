@@ -14,6 +14,7 @@ import 'package:arq_app/app/pages/registration/registration_page.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
+import 'package:arq_app/app/viewmodels/login_viewmodel.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
@@ -29,6 +30,7 @@ class AppModule extends Module {
     i.addLazySingleton(AppController.new);
     i.add(ChangeThemeViewmodel.new);
     i.add<LocalStorageInterface>(SharedLocalStorageServiceImplementation.new);
+    i.add(LoginViewmodel.new);
   }
 
   @override

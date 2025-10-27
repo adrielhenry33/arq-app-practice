@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "586590651645",
+    "project_id": "fake-store-8da54",
+    "storage_bucket": "fake-store-8da54.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586590651645:android:dcb8315bf3162b6f8dea94",
+        "android_client_info": {
+          "package_name": "com.example.arq_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgt4JnwJ_fb7FPmiaxdAQdiay_M4FjH1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

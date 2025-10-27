@@ -2,12 +2,12 @@ import 'package:arq_app/app/app_module.dart';
 import 'package:arq_app/app/app_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+//REGRA PRINCIPAL: TUDO NO NOSSO CODIGO DEVE TER UMA APENAS UMA RESPONSABILIDADE
 
-//REGRA PRINCIPAL: TUDO NO NOSSO CODIGO DEVE TER UMA APENAS UMA RESPONSABILIDADE  
+void main() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-void main() {
   runApp(ModularApp(module: AppModule(), child: AppWidget()));
 }
-
-
-
