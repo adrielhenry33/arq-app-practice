@@ -52,7 +52,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Title(
                     color: appController.isDark ? Colors.black : Colors.white,
                     child: Text(
-                      'Criar Conta',
+                      'Crie sua Conta',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -141,28 +141,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                   SizedBox(height: 15),
 
-                  TextButton(
-                    onPressed: () {
-                      Modular.to.pop();
+                  GestureDetector(
+                    onTap: () {
+                      Modular.to.pushReplacementNamed('/');
                     },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      padding: EdgeInsets.all(16),
-                      textStyle: TextStyle(color: Colors.white),
-                      minimumSize: Size.fromHeight(55),
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(12),
-                      ),
-                    ),
-                    child: Text(
-                      'Ja possui uma conta? Faça login',
-                      style: TextStyle(
-                        color: appController.isDark
-                            ? Colors.black87
-                            : Colors.white,
-                        fontSize: 16,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Ja é membro?'),
+                        SizedBox(width: 5),
+                        Text(
+                          'Faça login',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                 ],

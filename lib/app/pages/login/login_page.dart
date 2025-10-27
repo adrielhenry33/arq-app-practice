@@ -106,7 +106,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 5),
+
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Esqueceu sua senha? ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 5),
 
               ElevatedButton(
                 onPressed: () {
@@ -129,49 +144,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              SizedBox(height: 15),
+              SizedBox(height: 10),
 
-              ElevatedButton(
-                onPressed: () {
+              GestureDetector(
+                onTap: () {
                   Modular.to.pushNamed('/register');
                 },
-                style: ElevatedButton.styleFrom(
-                  elevation: 2,
-                  backgroundColor: Colors.deepOrangeAccent,
-                  padding: EdgeInsets.all(16),
-                  textStyle: TextStyle(color: Colors.white),
-                  minimumSize: Size.fromHeight(55),
-
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(12),
-                  ),
-                ),
-                child: Text(
-                  'Criar conta ',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ),
-
-              SizedBox(height: 15),
-
-              TextButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  padding: EdgeInsets.all(16),
-                  textStyle: TextStyle(color: Colors.white),
-                  minimumSize: Size.fromHeight(55),
-
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(12),
-                  ),
-                ),
-                child: Text(
-                  'Esqueceu sua senha? ',
-                  style: TextStyle(
-                    color: appController.isDark ? Colors.black87 : Colors.white,
-                    fontSize: 16,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Ainda não é membro?'),
+                    SizedBox(width: 5),
+                    Text(
+                      'Cadastre-se',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
             ],
