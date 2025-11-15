@@ -7,14 +7,15 @@ import 'package:arq_app/app/viewmodels/home_controller.dart';
 import 'package:arq_app/app/interfaces/client_http_interface.dart';
 import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
-import 'package:arq_app/app/pages/home/home_page.dart';
-import 'package:arq_app/app/pages/login/login_page.dart';
-import 'package:arq_app/app/pages/favorites/favorites_page.dart';
-import 'package:arq_app/app/pages/registration/registration_page.dart';
+import 'package:arq_app/app/pages/home_page.dart';
+import 'package:arq_app/app/pages/login_page.dart';
+import 'package:arq_app/app/pages/favorites_page.dart';
+import 'package:arq_app/app/pages/registration_page.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/login_viewmodel.dart';
+import 'package:arq_app/app/viewmodels/registrarion_viewmodel.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
@@ -22,15 +23,18 @@ class AppModule extends Module {
   void binds(i) {
     i.addSingleton(FavoritasRepository.new);
 
+    i.add<LoginViewmodel>(LoginViewmodel.new);
     i.addSingleton(HomeController.new);
     i.addSingleton(FavoritesController.new);
     i.add(ApistoreViewmodel.new);
     i.add<StoreRepositoryInterface>(StoreRepositoryImplementation.new);
     i.add<ClientHttpInterface>(ClientHttpServiceImplementation.new);
     i.addLazySingleton(AppController.new);
-    i.add(ChangeThemeViewmodel.new);
-    i.add<LocalStorageInterface>(SharedLocalStorageServiceImplementation.new);
-    i.add(LoginViewmodel.new);
+    i.addLazySingleton(ChangeThemeViewmodel.new);
+    i.addLazySingleton<LocalStorageInterface>(
+      SharedLocalStorageServiceImplementation.new,
+    );
+    i.add<RegistrarionViewmodel>(RegistrarionViewmodel.new);
   }
 
   @override

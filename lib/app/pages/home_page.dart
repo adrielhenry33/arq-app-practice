@@ -43,12 +43,10 @@ class _HomePageState extends State<HomePage> {
                 actions: [CustomSwitchWidget()],
                 title: Text(
                   homeController.textBar.value,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(fontFamily: 'Gotthan'),
                 ),
-                backgroundColor: hasSelection
-                    ? Colors.blueAccent
-                    : Colors.deepOrangeAccent,
-                centerTitle: true,
+
+                centerTitle: false,
               );
             },
           ),
