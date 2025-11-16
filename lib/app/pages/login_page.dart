@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:arq_app/app/components/texto_form_component.dart';
 import 'package:arq_app/app/viewmodels/login_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,66 +71,35 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 15),
                   Image(image: AssetImage(loginImage)),
                   SizedBox(height: 20),
-                  TextFormField(
+
+                  TextoFormComponent(
+                    controller: viewmodel.emailController,
+                    labelText: 'email',
+                    icone: Icons.email_outlined,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Campo Obrigatório!";
+                        return 'Campo Obrigatório';
                       }
                       return null;
                     },
-                    controller: viewmodel.emailController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.email_outlined, size: 20),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      label: Text(
-                        'email',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      contentPadding: EdgeInsets.all(16),
-                    ),
+                    isObscure: false,
+                    needIcon: false,
                   ),
 
                   SizedBox(height: 15),
-                  TextFormField(
+
+                  TextoFormComponent(
+                    controller: viewmodel.senhaController,
+                    labelText: 'password',
+                    icone: Icons.lock_outline,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Campo Obrigatório!";
+                        return 'Campo Obrigatório';
                       }
                       return null;
                     },
-                    obscureText: !_isVisiblePass,
-                    controller: viewmodel.senhaController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock_outline, size: 20),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _isVisiblePass = !_isVisiblePass;
-                          });
-                        },
-                        icon: Icon(
-                          _isVisiblePass
-                              ? Icons.visibility
-                              : Icons.visibility_off_outlined,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      label: Text(
-                        'password',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      contentPadding: EdgeInsets.all(16),
-                    ),
+                    isObscure: false,
+                    needIcon: false,
                   ),
 
                   SizedBox(height: 5),
@@ -163,7 +133,9 @@ class _LoginPageState extends State<LoginPage> {
                                 if (Platform.isAndroid) {
                                   return AlertDialog(
                                     title: Text('Erro ao Logar'),
-                                    content: Text(viewmodel.errorMessage),
+                                    content: Text(
+                                      'Email ou Senha incorretos, tente novamente ${viewmodel.errorMessage}',
+                                    ),
                                     actions: [
                                       TextButton(
                                         onPressed: () {

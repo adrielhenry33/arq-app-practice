@@ -6,13 +6,13 @@ class RegistrarionViewmodel {
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
   final nomeController = TextEditingController();
-  final sobrenomeController = TextEditingController();
 
   bool onException = false;
   String exceptionMessage = '';
   bool isVisible = true;
 
   Future<bool> signIn() async {
+    bool result = false;
     try {
       final UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -21,14 +21,14 @@ class RegistrarionViewmodel {
           );
       final uid = user.user?.uid;
       if (uid != null) {
-        await userDetails(
+        result = await userDetails(
           nomeController.text.trim(),
-          sobrenomeController.text.trim(),
           emailController.text.trim(),
           uid,
         );
       }
-      return true;
+      if (result) return true;
+      return false;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
@@ -48,24 +48,21 @@ class RegistrarionViewmodel {
           exceptionMessage = 'Ocorreu um erro desconhecido: ${e.message}';
       }
       return false;
+    } on FirebaseException catch (e) {
+      exceptionMessage = e.code;
+      return false;
     }
   }
 
-  Future<bool> userDetails(
-    String nome,
-    String sobrenome,
-    String email,
-    String uid,
-  ) async {
+  Future<bool> userDetails(String nome, String email, String uid) async {
     try {
-      await FirebaseFirestore.instance.collection('datauser').doc(uid).set({
+      await FirebaseFirestore.instance.collection('usuarios').doc(uid).set({
         'Nome': nome,
-        'Emai': email,
-        'Sobrenome': sobrenome,
+        'Email': email,
         'data': FieldValue.serverTimestamp(),
       });
       return true;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseException catch (e) {
       exceptionMessage = 'erro ao criar o usuário contate o suporte ${e.code}';
       return false;
     }

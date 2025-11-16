@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'fake-store-8da54.firebaseapp.com',
     storageBucket: 'fake-store-8da54.firebasestorage.app',
   );
+
 }
