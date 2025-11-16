@@ -1,6 +1,7 @@
 import 'package:arq_app/app/Repository/favorites_repository.dart';
 import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
+import 'package:arq_app/app/pages/recover_page.dart';
 import 'package:arq_app/app/viewmodels/app_controller.dart';
 import 'package:arq_app/app/viewmodels/favorites_controller.dart';
 import 'package:arq_app/app/viewmodels/home_controller.dart';
@@ -15,6 +16,7 @@ import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/login_viewmodel.dart';
+import 'package:arq_app/app/viewmodels/recover_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/registrarion_viewmodel.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -24,8 +26,10 @@ class AppModule extends Module {
     i.addSingleton(FavoritasRepository.new);
 
     i.add<LoginViewmodel>(LoginViewmodel.new);
+    i.add<RecoverViewmodel>(RecoverViewmodel.new);
     i.addSingleton(HomeController.new);
     i.addSingleton(FavoritesController.new);
+
     i.add(ApistoreViewmodel.new);
     i.add<StoreRepositoryInterface>(StoreRepositoryImplementation.new);
     i.add<ClientHttpInterface>(ClientHttpServiceImplementation.new);
@@ -43,5 +47,6 @@ class AppModule extends Module {
     r.child('/home', child: (context) => HomePage());
     r.child('/register', child: (context) => RegistrationPage());
     r.child('/favorites', child: (context) => FavoritesPage());
+    r.child('/recover', child: (context) => RecoverPage());
   }
 }

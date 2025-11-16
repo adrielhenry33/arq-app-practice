@@ -98,14 +98,16 @@ class _LoginPageState extends State<LoginPage> {
                       }
                       return null;
                     },
-                    isObscure: false,
-                    needIcon: false,
+                    isObscure: true,
+                    needIcon: true,
                   ),
 
                   SizedBox(height: 5),
 
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Modular.to.pushNamed('/recover');
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
