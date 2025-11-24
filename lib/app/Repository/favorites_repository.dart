@@ -1,17 +1,17 @@
-import 'package:arq_app/app/models/store_model.dart';
+import 'package:arq_app/app/models/product_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class FavoritasRepository {
-  final ValueNotifier<List<StoreModel>> _favoritos =
-      ValueNotifier<List<StoreModel>>([]);
+  final ValueNotifier<List<ProductModel>> _favoritos =
+      ValueNotifier<List<ProductModel>>([]);
 
-  ValueNotifier<List<StoreModel>> get favoritesNotifier => _favoritos;
+  ValueNotifier<List<ProductModel>> get favoritesNotifier => _favoritos;
 
-  void addProdutos(StoreModel produto) {
+  void addProdutos(ProductModel produto) {
     _favoritos.value = List.from(_favoritos.value)..add(produto);
   }
 
-  void removeProduto(StoreModel produto) {
+  void removeProduto(ProductModel produto) {
     if (_favoritos.value.contains(produto)) {
       _favoritos.value = List.from(_favoritos.value)..remove(produto);
     }
@@ -21,7 +21,7 @@ class FavoritasRepository {
     _favoritos.value = [];
   }
 
-  void addAll(List<StoreModel> model) {
+  void addAll(List<ProductModel> model) {
     if (model.isNotEmpty) {
       _favoritos.value = List.from(_favoritos.value)..addAll(model);
     }

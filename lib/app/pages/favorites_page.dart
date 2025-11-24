@@ -1,6 +1,6 @@
 import 'package:arq_app/app/components/custom_switch_widget.dart';
+import 'package:arq_app/app/models/product_model.dart';
 import 'package:arq_app/app/viewmodels/favorites_controller.dart';
-import 'package:arq_app/app/models/store_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -100,7 +100,7 @@ class FavoritesPage extends StatelessWidget {
             ),
           ),
         ),
-        body: ValueListenableBuilder<List<StoreModel>>(
+        body: ValueListenableBuilder<List<ProductModel>>(
           valueListenable: favoritosController.favoritos,
           builder: (context, selecionadas, _) {
             if (selecionadas.isEmpty) {

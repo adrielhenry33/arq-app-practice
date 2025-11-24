@@ -14,7 +14,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _isVisiblePass = false;
   final viewmodel = Modular.get<LoginViewmodel>();
   final _key = GlobalKey<FormState>();
 

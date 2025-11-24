@@ -1,5 +1,5 @@
 import 'package:arq_app/app/Repository/favorites_repository.dart';
-import 'package:arq_app/app/models/store_model.dart';
+import 'package:arq_app/app/models/product_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class FavoritesController extends ChangeNotifier{
@@ -9,18 +9,18 @@ class FavoritesController extends ChangeNotifier{
     _repository.favoritesNotifier.addListener(somaProdutos);
   }
 
-  ValueNotifier<List<StoreModel>> get favoritos =>
+  ValueNotifier<List<ProductModel>> get favoritos =>
       _repository.favoritesNotifier;
 
   final soma = ValueNotifier<double>(0.0);
 
   
 
-  void remove(StoreModel produto) {
+  void remove(ProductModel produto) {
     _repository.removeProduto(produto);
   }
 
-  void add(StoreModel produto) {
+  void add(ProductModel produto) {
     _repository.addProdutos(produto);
   }
 

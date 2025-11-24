@@ -1,5 +1,5 @@
-import 'package:arq_app/app/models/store_model.dart';
+import 'package:arq_app/app/models/product_model.dart';
 
 abstract class StoreRepositoryInterface {
-  Future <List<StoreModel>> getStore();
+  Future<List<ProductModel>> getStore({String categoria = ''});
 }

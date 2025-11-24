@@ -1,6 +1,4 @@
-import 'package:arq_app/app/components/custom_switch_widget.dart';
-import 'package:arq_app/app/viewmodels/home_controller.dart';
-import 'package:arq_app/app/models/store_model.dart';
+import 'package:arq_app/app/viewmodels/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -12,156 +10,237 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final homeController = Modular.get<HomeController>();
-  bool _isVisibleButton = false;
-  bool _isSelected = false;
+  final HomeViewModel viewmodel = Modular.get<HomeViewModel>();
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    final height = size.height * 0.28;
+    final double sizeUp = 100.0;
+    final color = ColorScheme.of(context);
+
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: ValueListenableBuilder<List<StoreModel>>(
-            valueListenable: homeController.selecionados,
-            builder: (context, selecionados, child) {
-              final bool hasSelection = selecionados.isNotEmpty;
-
-              homeController.textBar.value = hasSelection
-                  ? '${selecionados.length} Produto(s) Selecionado(s)'
-                  : 'Produtos';
-
-              return AppBar(
-                leading: selecionados.isNotEmpty
-                    ? IconButton(
-                        onPressed: () {
-                          homeController.resetSelected();
-                        },
-                        icon: Icon(Icons.close, size: 30),
-                      )
-                    : null,
-                actions: [CustomSwitchWidget()],
-                title: Text(
-                  homeController.textBar.value,
-                  style: TextStyle(fontFamily: 'Gotthan'),
-                ),
-
-                centerTitle: false,
-              );
-            },
-          ),
-        ),
-
-        floatingActionButton: !_isVisibleButton
-            ? Center(
-                child: FloatingActionButton.large(
-                  child: Icon(
-                    Icons.store,
-                    color: Colors.deepOrangeAccent,
-                    size: 50,
-                  ),
-                  onPressed: () {
-                    homeController.getStore();
-                    setState(() {
-                      _isVisibleButton = true;
-                    });
-                  },
-                ),
-              )
-            : Container(),
-
-        bottomNavigationBar: ValueListenableBuilder<List>(
-          valueListenable: homeController.selecionados,
-          builder: (context, selecionados, _) {
-            final hasSelected = homeController.selecionados.value.isNotEmpty;
-            return BottomAppBar(
-              color: hasSelected ? Colors.blueAccent : Colors.deepOrangeAccent,
-              shape: CircularNotchedRectangle(),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.white),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        minimumSize: Size(150, 150),
-                      ),
-                      onPressed: () {
-                        if (hasSelected) {
-                          homeController.addAll();
-                        } else {
-                          null;
-                        }
-                      },
-                      child: Icon(Icons.add, color: Colors.white, size: 30),
-                    ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.white),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        minimumSize: Size(150, 150),
-                      ),
-                      onPressed: () {
-                        Modular.to.pushNamed('/favorites');
-                      },
-                      child: Icon(
-                        Icons.shopping_cart_checkout_outlined,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-
-        body: Column(
+        body: Stack(
           children: [
-            Expanded(
-              child: ValueListenableBuilder<List<StoreModel?>>(
-                valueListenable: homeController.store,
-                builder: (context, store, child) {
-                  return ListView.builder(
-                    itemCount: store.length,
-                    itemBuilder: (context, index) {
-                      final produtos = store[index];
-                      if (produtos == null) {
-                        return const SizedBox.shrink();
-                      }
-                      return ValueListenableBuilder<List<StoreModel>>(
-                        valueListenable: homeController.selecionados,
-                        builder: (context, selecionados, _) {
-                          _isSelected = selecionados.contains(produtos);
-                          return Card(
-                            elevation: 4,
-                            margin: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-                            child: ListTile(
-                              onTap: () {
-                                homeController.selected(produtos);
-                              },
-                              leading: _isSelected
-                                  ? const CircleAvatar(child: Icon(Icons.check))
-                                  : Image.network(produtos.image),
-                              title: Text(produtos.title),
-                              subtitle: Text(produtos.category),
-                              trailing: Text(
-                                'R\$${produtos.price.toStringAsFixed(2)}',
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              height: height,
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(color: Colors.deepOrangeAccent),
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: 30,
+                      vertical: 55,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'F',
+                              style: TextStyle(
+                                color: Colors.deepOrangeAccent,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 40,
                               ),
                             ),
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'FakeStore',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontFamily: 'MontSerrat',
+                            fontSize: 35,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            Positioned(
+              top: height - sizeUp,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color.surfaceBright,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                  child: SingleChildScrollView(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: 20,
+                      vertical: 30,
+                    ),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _controller,
+
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey[200],
+
+                            hint: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                'Search',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Roboto',
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Icon(
+                                Icons.search,
+                                color: Colors.deepPurpleAccent,
+                                size: 30,
+                              ),
+                            ),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(right: 15.0),
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                color: Colors.deepPurpleAccent,
+                                size: 30,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15),
+
+                        GridView.count(
+                          childAspectRatio: 0.75,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          primary: false,
+                          crossAxisCount: 2,
+                          padding: EdgeInsets.only(top: 10, bottom: 15),
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          children: [
+                            Container(
+                              height: 500,
+                              width: 130,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFfdf0e9),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Eletrônicos',
+                                      style: TextStyle(fontFamily: 'Roboto'),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      'MacBook Pro',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'MontSerrat',
+                                      ),
+                                    ),
+                                    Image(
+                                      image: AssetImage('images/macbook.jpg'),
+                                      height: 150,
+                                      
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 500,
+                              width: 130,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFe7f3eb),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0,
+                                  horizontal: 8.0,
+                                ),
+                                child: Column(children: [Text('Eletrônicos')]),
+                              ),
+                            ),
+                            Container(
+                              height: 500,
+                              width: 130,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFf8f9e4),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                              child: Column(children: [Text('Eletrônicos')]),
+                            ),
+                            Container(
+                              height: 500,
+                              width: 130,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFefeff0),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
