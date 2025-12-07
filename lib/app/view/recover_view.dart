@@ -6,14 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class RecoverPage extends StatefulWidget {
-  const RecoverPage({super.key});
+class RecoverView extends StatefulWidget {
+  const RecoverView({super.key});
 
   @override
-  State<RecoverPage> createState() => _RecoverPageState();
+  State<RecoverView> createState() => _RecoverViewState();
 }
 
-class _RecoverPageState extends State<RecoverPage> {
+class _RecoverViewState extends State<RecoverView> {
   final viewmodel = Modular.get<RecoverViewmodel>();
   final _key = GlobalKey<FormState>();
 

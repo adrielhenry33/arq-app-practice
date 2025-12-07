@@ -3,14 +3,14 @@ import 'package:arq_app/app/viewmodels/registrarion_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+class RegistrationView extends StatefulWidget {
+  const RegistrationView({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<RegistrationView> createState() => _RegistrationViewState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _RegistrationViewState extends State<RegistrationView> {
   final viewmodel = Modular.get<RegistrarionViewmodel>();
   final _key = GlobalKey<FormState>();
 
