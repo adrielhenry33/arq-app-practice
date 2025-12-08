@@ -1,6 +1,8 @@
 import 'package:arq_app/app/Repository/favorites_repository.dart';
+import 'package:arq_app/app/Repository/product_category_repository.dart';
 import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
+import 'package:arq_app/app/interfaces/product_category_interface.dart';
 import 'package:arq_app/app/view/recover_view.dart';
 import 'package:arq_app/app/viewmodels/app_controller.dart';
 import 'package:arq_app/app/viewmodels/favorites_controller.dart';
@@ -43,6 +45,9 @@ class AppModule extends Module {
         i.get<FavoritasRepository>(),
         i.get<StoreRepositoryInterface>(),
       ),
+    );
+    i.addSingleton<IProductCategoryInterface>(
+      () => ProductCategoryRepository(i.get<ClientHttpInterface>()),
     );
   }
 
