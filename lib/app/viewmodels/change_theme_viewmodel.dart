@@ -17,11 +17,10 @@ class ChangeThemeViewmodel {
   ChangeThemeViewmodel({required this.storage});
 
 
-  Future initStorge() async {
+  Future initStorage() async {
    await storage.get('isDark').then((value){ 
       if (value != null) {
-        // caos a chave seja a mesma mas o valor != nulo 
-        //o theme swicht recebe o valor do metodo get 
+        
         config.themeSwicht.value = value;
       }
     });

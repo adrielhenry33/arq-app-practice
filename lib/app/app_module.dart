@@ -1,36 +1,62 @@
+import 'package:arq_app/app/Repository/favorites_repository.dart';
+import 'package:arq_app/app/Repository/product_category_repository.dart';
 import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
-import 'package:arq_app/app/controllers/app_controller.dart';
-import 'package:arq_app/app/controllers/home_controller.dart';
+import 'package:arq_app/app/interfaces/product_category_interface.dart';
+import 'package:arq_app/app/view/recover_view.dart';
+import 'package:arq_app/app/viewmodels/app_controller.dart';
+import 'package:arq_app/app/viewmodels/favorites_controller.dart';
+import 'package:arq_app/app/viewmodels/home_viewmodel.dart';
 import 'package:arq_app/app/interfaces/client_http_interface.dart';
 import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
-import 'package:arq_app/app/pages/home/home_page.dart';
-import 'package:arq_app/app/pages/login/login_page.dart';
-import 'package:arq_app/app/pages/produtcs/products_page.dart';
-import 'package:arq_app/app/pages/registration/registration_page.dart';
+import 'package:arq_app/app/view/home_view.dart';
+import 'package:arq_app/app/view/favorites_view.dart';
+import 'package:arq_app/app/view/registration_view.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
-import 'package:arq_app/app/viewmodels/apistore_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
+import 'package:arq_app/app/viewmodels/login_viewmodel.dart';
+import 'package:arq_app/app/viewmodels/recover_viewmodel.dart';
+import 'package:arq_app/app/viewmodels/registrarion_viewmodel.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
   @override
   void binds(i) {
-    i.add(HomeController.new);
-    i.add(ApistoreViewmodel.new);
-    i.add<StoreRepositoryInterface>(StoreRepositoryImplementation.new);
     i.add<ClientHttpInterface>(ClientHttpServiceImplementation.new);
+
+    i.addLazySingleton<LocalStorageInterface>(
+      SharedLocalStorageServiceImplementation.new,
+    );
+    i.addSingleton(FavoritasRepository.new);
+    i.addLazySingleton<StoreRepositoryInterface>(
+      () => StoreRepositoryImplementation(i.get<ClientHttpInterface>()),
+    );
     i.addLazySingleton(AppController.new);
-    i.add(ChangeThemeViewmodel.new);
-    i.add<LocalStorageInterface>(SharedLocalStorageServiceImplementation.new);
+
+    i.add<RecoverViewmodel>(RecoverViewmodel.new);
+    i.addSingleton(FavoritesController.new);
+    i.add<LoginViewmodel>(LoginViewmodel.new);
+    i.addLazySingleton(ChangeThemeViewmodel.new);
+    i.add<RegistrarionViewmodel>(RegistrarionViewmodel.new);
+
+    i.addLazySingleton<HomeViewModel>(
+      () => HomeViewModel(
+        i.get<FavoritasRepository>(),
+        i.get<StoreRepositoryInterface>(),
+      ),
+    );
+    i.addSingleton<IProductCategoryInterface>(
+      () => ProductCategoryRepository(i.get<ClientHttpInterface>()),
+    );
   }
 
   @override
   void routes(r) {
-    r.child('/', child: (context) => LoginPage());
-    r.child('/home', child: (context) => HomePage());
-    r.child('/register', child: (context) => RegistrationPage());
-    r.child('/favorites', child: (context) => ProductsPage());
+    r.child('/', child: (context) => HomeView());
+    r.child('/home', child: (context) => HomeView());
+    r.child('/register', child: (context) => RecoverView());
+    r.child('/favorites', child: (context) => FavoritesView());
+    r.child('/recover', child: (context) => RecoverView());
   }
 }

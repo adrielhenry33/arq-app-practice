@@ -2,7 +2,7 @@
 e os widgets que não serão tão vistos ou serão componentes do nosso aplicativo 
 */
 
-import 'package:arq_app/app/controllers/app_controller.dart';
+import 'package:arq_app/app/viewmodels/app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -19,7 +19,7 @@ class AppWidget extends StatelessWidget {
         return MaterialApp.router(
           title: 'Flutter Demo',
           theme: ThemeData(
-            brightness: isDark ? Brightness.light : Brightness.dark,
+            brightness: isDark ? Brightness.dark : Brightness.light,
           ),
           routerDelegate: Modular.routerDelegate,
           routeInformationParser: Modular.routeInformationParser,
