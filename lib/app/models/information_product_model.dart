@@ -10,3 +10,4 @@ class InformationProductModel {
     required this.shippingInformation,
   });
 }
+
