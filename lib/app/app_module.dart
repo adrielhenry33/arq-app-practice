@@ -28,11 +28,15 @@ class AppModule extends Module {
     i.addLazySingleton<LocalStorageInterface>(
       SharedLocalStorageServiceImplementation.new,
     );
+
     i.addSingleton(FavoritasRepository.new);
     i.addLazySingleton<StoreRepositoryInterface>(
       () => StoreRepositoryImplementation(i.get<ClientHttpInterface>()),
     );
     i.addLazySingleton(AppController.new);
+    i.addSingleton<IProductCategoryInterface>(
+      () => ProductCategoryRepository(i.get<ClientHttpInterface>()),
+    );
 
     i.add<RecoverViewmodel>(RecoverViewmodel.new);
     i.addSingleton(FavoritesController.new);
@@ -46,9 +50,7 @@ class AppModule extends Module {
         i.get<StoreRepositoryInterface>(),
       ),
     );
-    i.addSingleton<IProductCategoryInterface>(
-      () => ProductCategoryRepository(i.get<ClientHttpInterface>()),
-    );
+
   }
 
   @override
