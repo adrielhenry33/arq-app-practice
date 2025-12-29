@@ -8,7 +8,7 @@ final produtsRepositoryyProvider = Provider<IProductCategoryInterface>((ref) {
   return produtos;
 });
 
-final produtsByCategoryProvider = FutureProvider.family
+final productsByCategoryProvider = FutureProvider.family
     .autoDispose<List<ProductModel>, String>((ref, categoria) async {
       final lista = ref.watch(produtsRepositoryyProvider);
       return await lista.getCategory(categoria);

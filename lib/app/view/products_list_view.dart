@@ -1,3 +1,5 @@
+import 'package:arq_app/app/components/custom_switch_widget.dart';
+import 'package:arq_app/app/components/product_card_component.dart';
 import 'package:arq_app/providers/categorias_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,11 +16,78 @@ class ProductsListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
-    final provider = ref.watch(produtsByCategoryProvider(nomeCategoria));
+    final productState = ref.watch(productsByCategoryProvider(nomeCategoria));
 
     return Scaffold(
-      
+      appBar: AppBar(
+        title: Text(
+          titulo,
+          style: TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 30)),
+          SizedBox(width: 10),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.filter_list_rounded, size: 30),
+          ),
+          SizedBox(width: 10),
+
+          CustomSwitchWidget(),
+          SizedBox(width: 10),
+        ],
+      ),
+
+      body: productState.when(
+        data: (produtos) {
+          return GridView.builder(
+            itemCount: produtos.length,
+
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              childAspectRatio: 0.65,
+            ),
+            itemBuilder: (context, index) {
+              final nome = produtos[index].title;
+              final preco = produtos[index].price;
+              final imagem = produtos[index].image;
+              return ProductCardComponent(
+                image: imagem,
+                nome: nome,
+                preco: preco,
+              );
+            },
+          );
+        },
+        error: (error, stackTrace) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Sem conexão com Internet',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'tente novamente',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 10),
+                Icon(Icons.error_outline, size: 50, color: Colors.red),
+              ],
+            ),
+          );
+        },
+        loading: () => Center(
+          child: CircularProgressIndicator(
+            color: Colors.deepPurple,
+            strokeWidth: 4,
+          ),
+        ),
+      ),
     );
   }
 }

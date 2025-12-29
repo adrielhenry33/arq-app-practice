@@ -3,6 +3,7 @@ import 'package:arq_app/app/Repository/product_category_repository.dart';
 import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
 import 'package:arq_app/app/interfaces/product_category_interface.dart';
+import 'package:arq_app/app/view/products_list_view.dart';
 import 'package:arq_app/app/view/recover_view.dart';
 import 'package:arq_app/app/viewmodels/app_controller.dart';
 import 'package:arq_app/app/viewmodels/favorites_controller.dart';
@@ -12,7 +13,6 @@ import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
 import 'package:arq_app/app/view/home_view.dart';
 import 'package:arq_app/app/view/favorites_view.dart';
-import 'package:arq_app/app/view/registration_view.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/login_viewmodel.dart';
@@ -50,13 +50,15 @@ class AppModule extends Module {
         i.get<StoreRepositoryInterface>(),
       ),
     );
-
   }
 
   @override
   void routes(r) {
-    r.child('/', child: (context) => HomeView());
-    r.child('/home', child: (context) => HomeView());
+    r.child(
+      '/',
+      child: (context) =>
+          ProductsListView(nomeCategoria: 'eletronicos', titulo: 'Eletrônicos'),
+    );
     r.child('/register', child: (context) => RecoverView());
     r.child('/favorites', child: (context) => FavoritesView());
     r.child('/recover', child: (context) => RecoverView());
