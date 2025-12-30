@@ -54,7 +54,7 @@ class ProductsListView extends ConsumerWidget {
               final preco = produtos[index].price;
               final imagem = produtos[index].image;
               return ProductCardComponent(
-                image: imagem,
+                image: imagem.first,
                 nome: nome,
                 preco: preco,
               );
@@ -62,6 +62,8 @@ class ProductsListView extends ConsumerWidget {
           );
         },
         error: (error, stackTrace) {
+          final erro = stackTrace;
+          print(erro);
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

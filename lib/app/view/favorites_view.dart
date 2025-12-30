@@ -127,7 +127,11 @@ class FavoritesView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                     Image(image: AssetImage('images/empty.png'), width: 400, height: 200,),
+                    Image(
+                      image: AssetImage('images/empty.png'),
+                      width: 400,
+                      height: 200,
+                    ),
                   ],
                 ),
               );
@@ -140,7 +144,7 @@ class FavoritesView extends StatelessWidget {
                     elevation: 4,
                     margin: const EdgeInsets.fromLTRB(15, 15, 15, 10),
                     child: ListTile(
-                      leading: Image.network(produtos.image),
+                      leading: Image.network(produtos.image.first),
                       title: Text(produtos.title),
                       subtitle: Text(produtos.category),
                       trailing: Text('R\$${produtos.price.toStringAsFixed(2)}'),

@@ -216,6 +216,8 @@ class _HomeViewState extends State<HomeView> {
                               bottom: 5,
                               left: 2,
                               right: 2,
+                              nomeCategoria: 'eletronicos',
+                              titulo: 'Eletrônicos',
                             ),
                             CustomCardComponent(
                               urlImagemFundo: 'images/bg_variedades_suave.png',
@@ -227,6 +229,8 @@ class _HomeViewState extends State<HomeView> {
                               bottom: 0,
                               left: 2,
                               right: 2,
+                              nomeCategoria: 'groceries',
+                              titulo: 'Variedades',
                             ),
 
                             CustomCardComponent(
@@ -239,6 +243,8 @@ class _HomeViewState extends State<HomeView> {
                               bottom: 20,
                               left: 1,
                               right: -12,
+                              nomeCategoria: 'furniture',
+                              titulo: 'Móveis',
                             ),
                             CustomCardComponent(
                               urlImagemFundo: 'images/bg_padrao_suave.png',
@@ -250,6 +256,8 @@ class _HomeViewState extends State<HomeView> {
                               bottom: -10,
                               left: 1,
                               right: -12,
+                              nomeCategoria: 'beauty',
+                              titulo: 'Beleza',
                             ),
                           ],
                         ),

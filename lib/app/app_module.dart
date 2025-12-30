@@ -54,13 +54,19 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.child(
-      '/',
-      child: (context) =>
-          ProductsListView(nomeCategoria: 'eletronicos', titulo: 'Eletrônicos'),
-    );
+    r.child('/', child: (context) => HomeView());
     r.child('/register', child: (context) => RecoverView());
     r.child('/favorites', child: (context) => FavoritesView());
     r.child('/recover', child: (context) => RecoverView());
+    r.child(
+      '/produtos',
+      child: (context) {
+        final args = r.args.data as Map<String, dynamic>;
+        return ProductsListView(
+          nomeCategoria: args['categoria'],
+          titulo: args['titulo'],
+        );
+      },
+    );
   }
 }
