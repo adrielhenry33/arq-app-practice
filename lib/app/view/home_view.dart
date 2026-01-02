@@ -213,7 +213,7 @@ class _HomeViewState extends State<HomeView> {
                               fraseEfeito: 'Poder e Modernidade',
                               height: 180,
                               width: 0,
-                              bottom: 5,
+                              bottom: -5,
                               left: 2,
                               right: 2,
                               nomeCategoria: 'eletronicos',
@@ -311,7 +311,7 @@ class _HomeViewState extends State<HomeView> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(width: 60),
+                                SizedBox(width: 40),
                                 MaterialButton(
                                   onPressed: () {},
                                   elevation: 0,

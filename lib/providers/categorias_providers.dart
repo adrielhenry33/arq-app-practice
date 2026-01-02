@@ -13,3 +13,8 @@ final productsByCategoryProvider = FutureProvider.family
       final lista = ref.watch(produtsRepositoryyProvider);
       return await lista.getCategory(categoria);
     });
+
+final favoritesProvider = StateProvider.family<bool, bool>((ref, isFavorite) {
+  bool isSelected = isFavorite;
+  return isSelected;
+});
