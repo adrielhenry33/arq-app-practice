@@ -7,19 +7,28 @@ class ProductCategoryRepository implements IProductCategoryInterface {
 
   ProductCategoryRepository(this._clientHttpService);
 
+  List<ProductModel> _parseProducts(dynamic responseBody) {
+    if (responseBody is Map && responseBody.containsKey('products')) {
+      final List list = responseBody['products'];
+      return list.map((item) => ProductModel.fromJson(item)).toList();
+    }
+    return [];
+  }
+
   @override
   Future<List<ProductModel>> getCategory(String categoria) async {
     if (categoria == 'eletronicos') return fetchEletronicos();
 
-    final response = await _clientHttpService.get(
+    final json = await _clientHttpService.get(
       'https://dummyjson.com/products/category/$categoria',
     );
-    return response;
+
+    return _parseProducts(json);
   }
 
   Future<List<ProductModel>> fetchEletronicos() async {
     try {
-      final response = await Future.wait([
+      final responses = await Future.wait([
         _clientHttpService.get(
           'https://dummyjson.com/products/category/smartphones',
         ),
@@ -34,13 +43,13 @@ class ProductCategoryRepository implements IProductCategoryInterface {
         ),
       ]);
 
-      final listaEletronicos = <ProductModel>[
-        ...response[0],
-        ...response[1],
-        ...response[2],
-        ...response[3],
-      ];
-      return listaEletronicos;
+      final listaFinal = <ProductModel>[];
+
+      for (var json in responses) {
+        listaFinal.addAll(_parseProducts(json));
+      }
+
+      return listaFinal;
     } catch (e) {
       return [];
     }

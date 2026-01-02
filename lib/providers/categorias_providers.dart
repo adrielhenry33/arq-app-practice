@@ -4,12 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 final produtsRepositoryyProvider = Provider<IProductCategoryInterface>((ref) {
-  final lista = Modular.get<IProductCategoryInterface>();
-  return lista;
+  final produtos = Modular.get<IProductCategoryInterface>();
+  return produtos;
 });
 
-final produtsByCategory = FutureProvider.family
+final productsByCategoryProvider = FutureProvider.family
     .autoDispose<List<ProductModel>, String>((ref, categoria) async {
       final lista = ref.watch(produtsRepositoryyProvider);
       return await lista.getCategory(categoria);
     });
+
+final favoritesProvider = StateProvider.family<bool, bool>((ref, isFavorite) {
+  bool isSelected = isFavorite;
+  return isSelected;
+});

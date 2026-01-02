@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomCardComponent extends StatelessWidget {
   final String urlImagemFundo;
@@ -10,6 +11,8 @@ class CustomCardComponent extends StatelessWidget {
   final double left;
   final double right;
   final double bottom;
+  final String titulo;
+  final String nomeCategoria;
 
   const CustomCardComponent({
     super.key,
@@ -22,13 +25,18 @@ class CustomCardComponent extends StatelessWidget {
     required this.bottom,
     required this.left,
     required this.right,
+    required this.titulo,
+    required this.nomeCategoria,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        
+      onTap: () {
+        Modular.to.pushNamed(
+          '/produtos',
+          arguments: {'categoria': nomeCategoria, 'titulo': titulo},
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -43,7 +51,10 @@ class CustomCardComponent extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

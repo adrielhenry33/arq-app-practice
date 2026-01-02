@@ -12,7 +12,7 @@ class ProductModel {
   final double rating;
   final int stock;
   final List<dynamic> tags;
-  final String image;
+  final List<dynamic> image;
   final String brand;
   final String sku;
   final int weight;
@@ -46,16 +46,16 @@ class ProductModel {
       price: (json['price'] as num).toDouble(),
       description: json['description'],
       category: json['category'],
-      image: json['image'],
+      image: List<dynamic>.from(json['images'] ?? []),
       rating: (json['rating'] as num).toDouble(),
       stock: json['stock'] ?? 0,
       tags: List<dynamic>.from(json['tags'] ?? []),
-      discountPercentage: json['discountPercentage'],
+      discountPercentage: json['discountPercentage'] * 1.0,
       brand: json['brand'] ?? '',
       sku: json['sku'] ?? '',
       weight: json['weight'],
       dimensions: DimensionsProductoModel.fromjson(json['dimensions']),
-      review: (json['review'] as List)
+      review: (json['reviews'] as List)
           .map((item) => ReviewProductModel.fromJson(item))
           .toList(),
       information: InformationProductModel(
@@ -65,5 +65,4 @@ class ProductModel {
       ),
     );
   }
- 
 }
