@@ -1,22 +1,18 @@
-import 'package:arq_app/providers/categorias_providers.dart';
+import 'package:arq_app/app/models/product_model.dart';
+import 'package:arq_app/app/viewmodels/favorites_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductCardComponent extends ConsumerWidget {
-  final String image;
-  final String nome;
-  final double preco;
+  final ProductModel produto;
 
-  const ProductCardComponent({
-    super.key,
-    required this.image,
-    required this.nome,
-    required this.preco,
-  });
+  const ProductCardComponent({super.key, required this.produto});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(favoritesProvider(false));
+    final listaFavoritos = ref.watch(favoritesProvider);
+    final isFavorite = listaFavoritos.contains(produto);
+
     Color corContexto = Theme.of(
       context,
     ).colorScheme.outline.withValues(alpha: 0.5);
@@ -32,18 +28,21 @@ class ProductCardComponent extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(color: corContexto),
               ),
-              child: Image(image: NetworkImage(image), fit: BoxFit.fitWidth),
+              child: Image(
+                image: NetworkImage(produto.image.first),
+                fit: BoxFit.fitWidth,
+              ),
             ),
           ),
           SizedBox(height: 10),
           Text(
-            nome,
+            produto.title,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
           SizedBox(height: 4),
 
           Text(
-            '\$$preco',
+            '\$${produto.price}',
             style: TextStyle(fontSize: 15),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -74,8 +73,14 @@ class ProductCardComponent extends ConsumerWidget {
                   color: Colors.grey.withValues(alpha: 0.1),
                 ),
                 child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite_outline),
+                  onPressed: () {
+                    ref
+                        .read(favoritesProvider.notifier)
+                        .selectedPrduct(produto);
+                  },
+                  icon: isFavorite
+                      ? Icon(Icons.favorite)
+                      : Icon(Icons.favorite_outline),
                 ),
               ),
               SizedBox(width: 10),

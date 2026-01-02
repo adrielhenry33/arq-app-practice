@@ -50,20 +50,11 @@ class ProductsListView extends ConsumerWidget {
               childAspectRatio: 0.65,
             ),
             itemBuilder: (context, index) {
-              final nome = produtos[index].title;
-              final preco = produtos[index].price;
-              final imagem = produtos[index].image;
-              return ProductCardComponent(
-                image: imagem.first,
-                nome: nome,
-                preco: preco,
-              );
+              return ProductCardComponent(produto: produtos[index]);
             },
           );
         },
         error: (error, stackTrace) {
-          final erro = stackTrace;
-          print(erro);
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
