@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CartProductViewmodel extends StateNotifier<List<CartProductModel>> {
   CartProductViewmodel() : super([]);
 
-  void add(CartProductModel produto) {
+  void addProduct(CartProductModel produto) {
     final exists = state.any((p) => p.produto.id == produto.produto.id);
 
     if (exists) {
@@ -25,7 +25,7 @@ class CartProductViewmodel extends StateNotifier<List<CartProductModel>> {
     }
   }
 
-  void delete(CartProductModel produto) {
+  void deleteProduct(CartProductModel produto) {
     final exists = state.any((p) {
       return p.produto.id == produto.produto.id;
     });

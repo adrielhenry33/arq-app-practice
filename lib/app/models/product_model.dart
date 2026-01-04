@@ -12,13 +12,14 @@ class ProductModel {
   final double rating;
   final int stock;
   final List<dynamic> tags;
-  final List<dynamic> image;
+  final List<dynamic> images;
   final String brand;
   final String sku;
   final int weight;
   final DimensionsProductoModel dimensions;
   final List<ReviewProductModel> review;
   final InformationProductModel information;
+  final String thumbnail;
 
   ProductModel({
     required this.brand,
@@ -33,10 +34,11 @@ class ProductModel {
     required this.discountPercentage,
     required this.description,
     required this.category,
-    required this.image,
+    required this.images,
     required this.dimensions,
     required this.review,
     required this.information,
+    required this.thumbnail,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -46,7 +48,7 @@ class ProductModel {
       price: (json['price'] as num).toDouble(),
       description: json['description'],
       category: json['category'],
-      image: List<dynamic>.from(json['images'] ?? []),
+      images: List<dynamic>.from(json['images'] ?? []),
       rating: (json['rating'] as num).toDouble(),
       stock: json['stock'] ?? 0,
       tags: List<dynamic>.from(json['tags'] ?? []),
@@ -63,6 +65,7 @@ class ProductModel {
         shippingInformation: json['shippingInformation'] ?? '',
         availabilityStatus: json['availabilityStatus'] ?? '',
       ),
+      thumbnail: json['thumbnail'],
     );
   }
 }
