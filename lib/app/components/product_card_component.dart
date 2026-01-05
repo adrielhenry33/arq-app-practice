@@ -105,7 +105,7 @@ class ProductCardComponent extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.grey.withValues(alpha: 0.1),
                 ),
-                child: PopUpComponent(),
+                child: PopUpComponent(produto: produto),
               ),
             ],
           ),
