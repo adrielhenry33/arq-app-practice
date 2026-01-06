@@ -1,5 +1,4 @@
 import 'package:arq_app/app/models/product_model.dart';
-import 'package:flutter/cupertino.dart';
 
 class FavoritasRepository {
   List<ProductModel> _favoritos = [];
