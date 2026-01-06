@@ -1,5 +1,6 @@
 import 'package:arq_app/app/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:share_plus/share_plus.dart';
 
 class PopUpComponent extends StatefulWidget {
@@ -19,7 +20,9 @@ class _PopUpComponentState extends State<PopUpComponent> {
       onSelected: (value) async {
         if (value == 'Compartilhar') {
           await _shareInfo();
-        } else if (value == 'Ver detalhes') {}
+        } else if (value == 'Ver detalhes') {
+          Modular.to.pushNamed('/details', arguments: widget.produto);
+        }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         PopupMenuItem(
@@ -52,6 +55,5 @@ class _PopUpComponentState extends State<PopUpComponent> {
     await SharePlus.instance.share(
       ShareParams(text: texto, subject: 'Olha esse produto incrível!'),
     );
-
   }
 }

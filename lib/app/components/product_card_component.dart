@@ -4,6 +4,7 @@ import 'package:arq_app/app/models/product_model.dart';
 import 'package:arq_app/app/viewmodels/cart_product_viewmodel.dart';
 import 'package:arq_app/app/viewmodels/favorites_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductCardComponent extends ConsumerWidget {
@@ -35,9 +36,14 @@ class ProductCardComponent extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(color: corContexto),
               ),
-              child: Image(
-                image: NetworkImage(produto.thumbnail),
-                fit: BoxFit.fitWidth,
+              child: GestureDetector(
+                onTap: () {
+                  Modular.to.pushNamed('/details', arguments: produto);
+                },
+                child: Image(
+                  image: NetworkImage(produto.thumbnail),
+                  fit: BoxFit.fitWidth,
+                ),
               ),
             ),
           ),
