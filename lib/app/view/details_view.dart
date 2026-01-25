@@ -1,3 +1,4 @@
+import 'package:arq_app/app/components/pop_up_component.dart';
 import 'package:arq_app/app/models/cart_product_model.dart';
 import 'package:arq_app/app/models/product_model.dart';
 import 'package:arq_app/app/viewmodels/cart_product_viewmodel.dart';
@@ -60,7 +61,20 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
       body: Padding(
         padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.produto.title,
+                  style: TextStyle(fontSize: 20, fontFamily: 'MontSerrat'),
+                ),
+
+                PopUpComponent(produto: widget.produto, showAllIcons: false),
+              ],
+            ),
+
             SizedBox(
               height: 350,
               child: PageView(
@@ -172,6 +186,35 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                 ],
               ),
             ),
+            SizedBox(height: 15),
+
+            Text(
+              'Descrição do Produto',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                fontFamily: 'MontSerrat',
+              ),
+              textAlign: TextAlign.start,
+            ),
+
+            SizedBox(height: 15),
+
+            Text(widget.produto.description),
+
+            SizedBox(height: 15),
+
+            Text(
+              'Avaliações',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                fontFamily: 'MontSerrat',
+              ),
+              textAlign: TextAlign.start,
+            ),
+
+            Text(''),
           ],
         ),
       ),

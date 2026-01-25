@@ -42,6 +42,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.7.0
   flutter_riverpod: ^2.6.1
   share_plus: ^12.0.1
+  google_cloud_translation: ^0.0.4
 
 dev_dependencies:
   flutter_test:
