@@ -35,7 +35,7 @@ class _PopUpComponentState extends State<PopUpComponent> {
           PopupMenuItem(
             value: 'Compartilhar',
             child: ListTile(
-              leading: Icon(Icons.share, color: Colors.black54),
+              leading: Icon(Icons.share, color: Colors.deepOrangeAccent),
               title: Text('Compartilhar'),
               contentPadding: EdgeInsets.zero,
             ),
@@ -53,13 +53,11 @@ class _PopUpComponentState extends State<PopUpComponent> {
       );
     }
     return IconButton(
-      icon: Icon(Icons.share, color: Colors.deepPurpleAccent),
+      icon: Icon(Icons.share, color: Colors.deepOrangeAccent),
       onPressed: () async {
         await _shareInfo();
       },
     );
-
-    
   }
 
   Future<void> _shareInfo() async {

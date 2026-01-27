@@ -30,6 +30,10 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
     final bool isOnCart = provider.any(
       (element) => element.produto.id == widget.produto.id,
     );
+    final copyProduct = CartProductModel(
+      produto: widget.produto,
+      quantidade: 1,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -51,171 +55,230 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                 ? Icon(Icons.check, size: 30, color: Colors.deepPurpleAccent)
                 : Icon(
                     Icons.shopping_cart,
-                    color: Colors.deepPurpleAccent,
+                    color: Colors.deepOrangeAccent,
                     size: 30,
                   ),
           ),
         ],
       ),
 
-      body: Padding(
-        padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.produto.title,
-                  style: TextStyle(fontSize: 20, fontFamily: 'MontSerrat'),
-                ),
-
-                PopUpComponent(produto: widget.produto, showAllIcons: false),
-              ],
-            ),
-
-            SizedBox(
-              height: 350,
-              child: PageView(
-                onPageChanged: (index) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                },
-                controller: pagCtrl,
-                children: widget.produto.images.map((urlImage) {
-                  return Image.network(
-                    urlImage,
-                    fit: BoxFit.fill,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(child: CircularProgressIndicator());
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Center(child: Icon(Icons.error));
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(widget.produto.images.length, (index) {
-                return AnimatedContainer(
-                  duration: Duration(microseconds: 300),
-                  curve: Curves.easeOut,
-                  margin: EdgeInsets.symmetric(horizontal: 4),
-                  height: 8,
-                  width: currentIndex == index ? 25 : 8,
-                  decoration: BoxDecoration(
-                    color: currentIndex == index
-                        ? Colors.deepPurpleAccent
-                        : Colors.grey[500],
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                );
-              }),
-            ),
-
-            SizedBox(height: 20),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Calcule Frete e Prazo',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    fontFamily: 'MontSerrat',
-                  ),
-                ),
-              ],
-            ),
-
-            SizedBox(height: 10),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Row(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 50,
+                  Text(
+                    widget.produto.title,
+                    style: TextStyle(fontSize: 20, fontFamily: 'MontSerrat'),
+                  ),
 
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Digite seu CEP',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.deepPurpleAccent,
-                              width: 2,
-                            ),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                          ),
-                        ),
-                      ),
+                  PopUpComponent(produto: widget.produto, showAllIcons: false),
+                ],
+              ),
+
+              SizedBox(
+                height: 350,
+                child: PageView(
+                  onPageChanged: (index) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
+                  controller: pagCtrl,
+                  children: widget.produto.images.map((urlImage) {
+                    return Image.network(
+                      urlImage,
+                      fit: BoxFit.fill,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(child: CircularProgressIndicator());
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(child: Icon(Icons.error));
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(widget.produto.images.length, (index) {
+                  return AnimatedContainer(
+                    duration: Duration(microseconds: 300),
+                    curve: Curves.easeOut,
+                    margin: EdgeInsets.symmetric(horizontal: 4),
+                    height: 8,
+                    width: currentIndex == index ? 25 : 8,
+                    decoration: BoxDecoration(
+                      color: currentIndex == index
+                          ? Colors.deepOrangeAccent
+                          : Colors.grey[500],
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  );
+                }),
+              ),
+              SizedBox(height: 20),
+
+              SizedBox(
+                width: double.infinity,
+                height: 60,
+
+                child: MaterialButton(
+                  onPressed: () {},
+                  color: Colors.deepOrangeAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(12),
+                  ),
+                  child: Text(
+                    'Comprar agora',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(width: 12),
+                ),
+              ),
+              SizedBox(height: 10),
 
-                  MaterialButton(
-                    onPressed: () {},
-                    color: Colors.deepPurpleAccent,
-                    height: 48,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Text(
-                      'Calcular',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+              SizedBox(
+                width: double.infinity,
+                height: 60,
+
+                child: MaterialButton(
+                  onPressed: () {
+                    if (isOnCart) {
+                      final copy = CartProductModel(
+                        produto: widget.produto,
+                        quantidade: 1,
+                      );
+
+                      ref.read(cartProvider.notifier).addProduct(copy);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Produto adicionado ao carrinho'),
+                          duration: Duration(seconds: 1),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    }
+                  },
+
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(12),
+                    side: BorderSide(color: Colors.deepOrange),
+                  ),
+                  child: Text(
+                    'Adicionar ao carrinho',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Calcule Frete e Prazo',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontFamily: 'MontSerrat',
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 15),
 
-            Text(
-              'Descrição do Produto',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                fontFamily: 'MontSerrat',
+              SizedBox(height: 10),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'Digite seu CEP',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Colors.deepPurpleAccent,
+                                width: 2,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+
+                    MaterialButton(
+                      onPressed: () {},
+                      color: Colors.deepOrangeAccent,
+                      height: 48,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Text(
+                        'Calcular',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              textAlign: TextAlign.start,
-            ),
+              SizedBox(height: 15),
 
-            SizedBox(height: 15),
-
-            Text(widget.produto.description),
-
-            SizedBox(height: 15),
-
-            Text(
-              'Avaliações',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                fontFamily: 'MontSerrat',
+              Text(
+                'Descrição do Produto',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontFamily: 'MontSerrat',
+                ),
+                textAlign: TextAlign.start,
               ),
-              textAlign: TextAlign.start,
-            ),
 
-            Text(''),
-          ],
+              SizedBox(height: 15),
+
+              Text(widget.produto.description),
+
+              SizedBox(height: 15),
+
+              Text(
+                'Avaliações',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontFamily: 'MontSerrat',
+                ),
+                textAlign: TextAlign.start,
+              ),
+
+              Text(''),
+            ],
+          ),
         ),
       ),
     );

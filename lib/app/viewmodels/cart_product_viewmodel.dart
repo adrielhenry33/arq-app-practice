@@ -56,6 +56,11 @@ class CartProductViewmodel extends StateNotifier<List<CartProductModel>> {
       state = [];
     }
   }
+
+  int getQtdProduto(CartProductModel produto) {
+    final result = state.firstWhere((p) => p.produto.id == produto.produto.id);
+    return result.quantidade;
+  }
 }
 
 //cerebro           //o que sera retornado
