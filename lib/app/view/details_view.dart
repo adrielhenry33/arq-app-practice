@@ -124,6 +124,42 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
               ),
               SizedBox(height: 20),
 
+              Row(
+                children: [
+                  Text(
+                    'De',
+                    style: TextStyle(fontFamily: 'MontSerrat', fontSize: 20),
+                  ),
+
+                  SizedBox(width: 8),
+                  Text(
+                    'R\$${widget.produto.price} ',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 20,
+                      decoration: TextDecoration.lineThrough,
+                      decorationThickness: 2,
+                    ),
+                  ),
+                  Text(
+                    'por apenas',
+                    style: TextStyle(fontFamily: 'MontSerrat', fontSize: 20),
+                  ),
+                  SizedBox(width: 8),
+                  Icon(Icons.label_important, color: Colors.red),
+                  Text(
+                    ' R\$${widget.produto.price - widget.produto.discountPercentage}',
+                    style: TextStyle(
+                      fontFamily: 'MontSerrat',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 15),
+
               SizedBox(
                 width: double.infinity,
                 height: 60,
@@ -151,6 +187,7 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                 height: 60,
 
                 child: MaterialButton(
+                  minWidth: double.infinity,
                   onPressed: () {
                     if (isOnCart) {
                       final copy = CartProductModel(

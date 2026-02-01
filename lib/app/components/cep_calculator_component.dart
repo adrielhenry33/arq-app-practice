@@ -151,6 +151,10 @@ class _CepCalculatorComponent extends ConsumerState<CepCalculatorComponent> {
                   'CEP: ${endereco.cep}',
                   style: TextStyle(color: Colors.grey[600], fontSize: 12),
                 ),
+                Text(
+                  'Entrega até sexta-feira',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
           ),
