@@ -1,3 +1,4 @@
+import 'package:arq_app/app/components/cep_calculator_component.dart';
 import 'package:arq_app/app/components/pop_up_component.dart';
 import 'package:arq_app/app/models/cart_product_model.dart';
 import 'package:arq_app/app/models/product_model.dart';
@@ -16,23 +17,22 @@ class DetailsView extends ConsumerStatefulWidget {
 
 class _DetailsViewState extends ConsumerState<DetailsView> {
   final pagCtrl = PageController();
+  final controller = TextEditingController();
   int currentIndex = 0;
 
   @override
   void dispose() {
     pagCtrl.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(cartProvider);
-    final bool isOnCart = provider.any(
+    final carrinhoProvider = ref.watch(cartProvider);
+
+    final bool isOnCart = carrinhoProvider.any(
       (element) => element.produto.id == widget.produto.id,
-    );
-    final copyProduct = CartProductModel(
-      produto: widget.produto,
-      quantidade: 1,
     );
 
     return Scaffold(
@@ -198,56 +198,8 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
 
               SizedBox(height: 10),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 50,
+              CepCalculatorComponent(),
 
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: 'Digite seu CEP',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(
-                                color: Colors.deepPurpleAccent,
-                                width: 2,
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-
-                    MaterialButton(
-                      onPressed: () {},
-                      color: Colors.deepOrangeAccent,
-                      height: 48,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Text(
-                        'Calcular',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               SizedBox(height: 15),
 
               Text(
