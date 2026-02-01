@@ -26,9 +26,11 @@ class _CepCalculatorComponent extends ConsumerState<CepCalculatorComponent> {
     final endereco = ref.watch(enderecoProvider);
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: SizedBox(

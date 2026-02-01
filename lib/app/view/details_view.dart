@@ -1,5 +1,6 @@
 import 'package:arq_app/app/components/cep_calculator_component.dart';
 import 'package:arq_app/app/components/pop_up_component.dart';
+import 'package:arq_app/app/components/review_component.dart';
 import 'package:arq_app/app/models/cart_product_model.dart';
 import 'package:arq_app/app/models/product_model.dart';
 import 'package:arq_app/app/viewmodels/cart_product_viewmodel.dart';
@@ -64,7 +65,7 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 10),
+          padding: EdgeInsets.only(top: 20, right: 15, left: 15, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -125,6 +126,7 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
               SizedBox(height: 20),
 
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'De',
@@ -158,7 +160,7 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                 ],
               ),
 
-              SizedBox(height: 15),
+              SizedBox(height: 20),
 
               SizedBox(
                 width: double.infinity,
@@ -265,7 +267,8 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                 textAlign: TextAlign.start,
               ),
 
-              Text(''),
+              SizedBox(height: 15),
+              ProductReviewsComponent(),
             ],
           ),
         ),
