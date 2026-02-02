@@ -5,6 +5,7 @@ import 'package:arq_app/app/models/cart_product_model.dart';
 import 'package:arq_app/app/models/product_model.dart';
 import 'package:arq_app/app/viewmodels/cart_product_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DetailsView extends ConsumerStatefulWidget {
@@ -42,23 +43,48 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
         title: Text('Detalhes do Produto'),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {
-              if (!isOnCart) {
-                final CartProductModel cartAux = CartProductModel(
-                  produto: widget.produto,
-                  quantidade: 1,
-                );
-                ref.read(cartProvider.notifier).addProduct(cartAux);
-              }
-            },
-            icon: isOnCart
-                ? Icon(Icons.check, size: 30, color: Colors.deepPurpleAccent)
-                : Icon(
-                    Icons.shopping_cart,
-                    color: Colors.deepOrangeAccent,
-                    size: 30,
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  
+                  Modular.to.pushNamed('/carrinho');
+                },
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.deepOrangeAccent,
+                  size: 30,
+                ),
+              ),
+              if (carrinhoProvider.isNotEmpty)
+                Positioned(
+                  right: 8,
+                  top: 8,
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 1.5),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 18,
+                      minHeight: 18,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${carrinhoProvider.length}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
+                ),
+              const SizedBox(width: 10),
+            ],
           ),
         ],
       ),
@@ -150,7 +176,7 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                   SizedBox(width: 8),
                   Icon(Icons.label_important, color: Colors.red),
                   Text(
-                    ' R\$${widget.produto.price - widget.produto.discountPercentage}',
+                    ' R\$${((widget.produto.price - (widget.produto.price * widget.produto.discountPercentage) / 100)).toStringAsFixed(2)}',
                     style: TextStyle(
                       fontFamily: 'MontSerrat',
                       fontSize: 20,

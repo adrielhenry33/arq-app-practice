@@ -8,6 +8,7 @@ import 'package:arq_app/app/interfaces/product_category_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
 import 'package:arq_app/app/models/product_model.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
+import 'package:arq_app/app/view/carrinho_view.dart';
 import 'package:arq_app/app/view/details_view.dart';
 import 'package:arq_app/app/view/home_view.dart';
 import 'package:arq_app/app/view/products_list_view.dart';
@@ -73,5 +74,6 @@ class AppModule extends Module {
         return DetailsView(produto: args);
       },
     );
+    r.child('/carrinho', child: (context) => CarrinhoView());
   }
 }
