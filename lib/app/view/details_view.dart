@@ -217,7 +217,6 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                 child: MaterialButton(
                   minWidth: double.infinity,
                   onPressed: () {
-                    if (isOnCart) {
                       final copy = CartProductModel(
                         produto: widget.produto,
                         quantidade: 1,
@@ -232,7 +231,7 @@ class _DetailsViewState extends ConsumerState<DetailsView> {
                           backgroundColor: Colors.green,
                         ),
                       );
-                    }
+                    
                   },
 
                   shape: RoundedRectangleBorder(

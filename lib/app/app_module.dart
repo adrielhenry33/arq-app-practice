@@ -2,10 +2,12 @@ import 'package:arq_app/app/Repository/favorites_repository.dart';
 import 'package:arq_app/app/Repository/product_category_repository.dart';
 import 'package:arq_app/app/Repository/store_implementation_repository.dart';
 import 'package:arq_app/app/Services/shared_local_storage_service.dart';
+import 'package:arq_app/app/components/card_carrinho_component.dart';
 import 'package:arq_app/app/interfaces/client_http_interface.dart';
 import 'package:arq_app/app/interfaces/local_storage_interface.dart';
 import 'package:arq_app/app/interfaces/product_category_interface.dart';
 import 'package:arq_app/app/interfaces/store_repository_interface.dart';
+import 'package:arq_app/app/models/cart_product_model.dart';
 import 'package:arq_app/app/models/product_model.dart';
 import 'package:arq_app/app/services/client_http_service.dart';
 import 'package:arq_app/app/view/carrinho_view.dart';
@@ -54,7 +56,12 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.child('/', child: (context) => HomeView());
+    r.child(
+      '/',
+      child: (context) {
+        return HomeView();
+      },
+    );
     r.child('/register', child: (context) => RecoverView());
     r.child('/recover', child: (context) => RecoverView());
     r.child(
@@ -74,6 +81,11 @@ class AppModule extends Module {
         return DetailsView(produto: args);
       },
     );
-    r.child('/carrinho', child: (context) => CarrinhoView());
+    r.child(
+      '/carrinho',
+      child: (context) {
+        return CartView();
+      },
+    );
   }
 }
