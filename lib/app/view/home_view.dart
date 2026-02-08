@@ -63,12 +63,31 @@ class _HomeViewState extends State<HomeView> {
                     color: Colors.deepPurpleAccent,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.home_rounded,
-                    fill: 0,
-                    color: Colors.deepPurpleAccent,
+                GestureDetector(
+                  onTap: () => Modular.to.pushNamed('/profile'),
+                  child: Container(
+                    width: 120,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.deepPurple,
+                    ),
+
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.person, color: Colors.white),
+                        SizedBox(width: 5),
+                        Text(
+                          'Perfil',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

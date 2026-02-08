@@ -14,6 +14,7 @@ import 'package:arq_app/app/view/carrinho_view.dart';
 import 'package:arq_app/app/view/details_view.dart';
 import 'package:arq_app/app/view/home_view.dart';
 import 'package:arq_app/app/view/products_list_view.dart';
+import 'package:arq_app/app/view/profile_view.dart';
 import 'package:arq_app/app/view/recover_view.dart';
 import 'package:arq_app/app/viewmodels/app_controller.dart';
 import 'package:arq_app/app/viewmodels/change_theme_viewmodel.dart';
@@ -87,5 +88,6 @@ class AppModule extends Module {
         return CartView();
       },
     );
+    r.child('/profile', child: (context) => ProfileView());
   }
 }
